@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>OOTD – AI Closet Stylist</title>
+  <title>OOTD – Sign in</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
       --bg-main: #f5f2ec;
-      --bg-page: #f9f6f0;
       --bg-card: #fdfbf7;
       --bg-muted: #f0ebe2;
       --accent: #c6b49f;
@@ -31,25 +30,43 @@
       background: radial-gradient(circle at top, #fdfaf6 0, #f5f2ec 55%);
       color: var(--text-main);
       min-height: 100vh;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(16px);
-      background: rgba(253, 250, 246, 0.94);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 14px 18px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      padding: 20px;
     }
 
-    .logo {
+    .shell {
+      max-width: 420px;
+      width: 100%;
+      background: var(--bg-card);
+      border-radius: 22px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 22px 20px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.85) 0, transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo-row {
       display: flex;
       align-items: center;
       gap: 10px;
+      margin-bottom: 16px;
     }
 
     .logo-mark {
@@ -71,99 +88,55 @@
       border: 1px solid rgba(0, 0, 0, 0.05);
     }
 
-    .logo-mark::after {
-      content: "";
-      position: absolute;
-      left: 24%;
-      right: 24%;
-      bottom: 26%;
-      height: 2px;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.18);
-    }
-
-    .logo-text-main {
+    .logo-main {
       font-weight: 600;
-      font-size: 18px;
-      letter-spacing: 0.05em;
+      font-size: 19px;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
     }
 
-    .logo-text-sub {
+    .logo-sub {
       font-size: 11px;
       color: var(--text-muted);
       letter-spacing: 0.16em;
       text-transform: uppercase;
     }
 
-    .profile-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 11px;
+    .title {
+      margin-top: 4px;
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 4px;
+      margin-top: 18px;
+      padding: 3px;
       border-radius: 999px;
+      background: #f7f3ed;
       border: 1px solid var(--border-subtle);
-      background: rgba(253, 250, 246, 0.9);
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 7px 4px;
+      border-radius: 999px;
       font-size: 12px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
       color: var(--text-muted);
-    }
-
-    .profile-chip span:first-child {
-      font-weight: 500;
-      color: var(--text-main);
-    }
-
-    main {
-      max-width: 1120px;
-      margin: 26px auto 40px;
-      padding: 0 16px 40px;
-      display: grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
-      gap: 20px;
-    }
-
-    @media (max-width: 900px) {
-      main {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .panel {
-      background: var(--bg-card);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-soft);
-      padding: 18px 18px 22px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .panel::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.8) 0, transparent 65%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .panel-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    h2 {
-      margin: 0 0 4px;
-      font-size: 20px;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      font-weight: 500;
     }
 
-    .panel-subtitle {
-      color: var(--text-muted);
-      font-size: 13px;
-      margin-bottom: 14px;
+    .tab.active {
+      background: #fdfbf7;
+      color: var(--text-main);
+      font-weight: 500;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
     }
 
     .field-label {
@@ -171,13 +144,11 @@
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      margin-top: 12px;
+      margin-top: 14px;
       margin-bottom: 4px;
     }
 
     input,
-    select,
-    textarea,
     button {
       width: 100%;
       border-radius: 11px;
@@ -190,22 +161,14 @@
       transition: border var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), transform 0.12s ease-out;
     }
 
-    input::placeholder,
-    textarea::placeholder {
+    input::placeholder {
       color: #b2aaa0;
     }
 
-    input:focus,
-    select:focus,
-    textarea:focus {
+    input:focus {
       border-color: var(--accent-soft);
       box-shadow: 0 0 0 1px rgba(198, 180, 159, 0.28);
       background: #fefcf8;
-    }
-
-    textarea {
-      min-height: 70px;
-      resize: vertical;
     }
 
     button {
@@ -215,7 +178,7 @@
       letter-spacing: 0.16em;
       text-transform: uppercase;
       font-size: 11px;
-      margin-top: 12px;
+      margin-top: 16px;
       cursor: pointer;
       box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
     }
@@ -230,954 +193,197 @@
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
     }
 
-    .button-secondary {
-      background: #f7f3ed;
-      box-shadow: none;
-      text-transform: none;
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      border: 1px dashed rgba(0, 0, 0, 0.08);
-      font-size: 12px;
-    }
-
-    .button-secondary:hover {
-      background: #f3ece2;
-      border-style: solid;
-      border-color: var(--accent-soft);
-      box-shadow: 0 0 0 1px rgba(198, 180, 159, 0.26);
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .pill {
-      border-radius: 999px;
-      padding: 4px 8px;
-      font-size: 11px;
-      border: 1px solid var(--border-subtle);
-      background: #f7f3ed;
-      color: var(--text-muted);
-    }
-
-    .pill.accent {
-      border-color: var(--accent-soft);
-      color: var(--accent-strong);
-      background: #f9f3ea;
-    }
-
-    .closet-grid {
-      margin-top: 12px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 10px;
-    }
-
-    .item-card {
-      position: relative;
-      background: #fdfbf7;
-      border-radius: 14px;
-      border: 1px solid var(--border-subtle);
-      padding: 8px;
-      cursor: grab;
-      transition: transform 0.16s ease-out, box-shadow 0.16s ease-out, border 0.16s ease-out, background 0.16s ease-out;
-    }
-
-    .item-card:active {
-      cursor: grabbing;
-    }
-
-    .item-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.06);
-      border-color: rgba(0, 0, 0, 0.08);
-      background: #fefcf8;
-    }
-
-    .item-img {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      border-radius: 10px;
-      background: #f0ebe3;
-    }
-
-    .item-meta {
+    .helper {
       margin-top: 6px;
       font-size: 11px;
       color: var(--text-muted);
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
     }
 
-    .item-meta strong {
-      color: var(--text-main);
-      font-size: 12px;
-      font-weight: 500;
-    }
-
-    .badge {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      background: rgba(253, 251, 247, 0.92);
-      border-radius: 999px;
-      padding: 2px 7px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      color: var(--text-muted);
-    }
-
-    .badge.neutral {
-      border-color: var(--accent-soft);
-      color: var(--accent-strong);
-    }
-
-    .badge-style {
-      position: absolute;
-      bottom: 8px;
-      left: 8px;
-      font-size: 10px;
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: rgba(252, 248, 242, 0.92);
-      border: 1px solid rgba(0, 0, 0, 0.04);
-      color: var(--text-muted);
-    }
-
-    .builder-dropzone {
-      margin-top: 10px;
-      min-height: 120px;
-      border-radius: 14px;
-      border: 1px dashed rgba(0, 0, 0, 0.08);
-      background: #f7f3ed;
-      padding: 8px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-      justify-content: flex-start;
-      transition: border 0.15s ease-out, background 0.15s ease-out, box-shadow 0.15s ease-out;
-    }
-
-    .builder-dropzone.is-over {
-      border-color: var(--accent-soft);
-      box-shadow: 0 0 0 1px rgba(198, 180, 159, 0.25);
-      background: #f3ece2;
-    }
-
-    .builder-item {
-      width: 70px;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      background: #fdfbf7;
-      font-size: 9px;
-      text-align: center;
-    }
-
-    .builder-item img {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      display: block;
-    }
-
-    .builder-item span {
-      display: block;
-      padding: 3px 4px 5px;
-      color: var(--text-muted);
-    }
-
-    .chips-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-top: 6px;
-    }
-
-    .chip {
-      font-size: 11px;
-      padding: 3px 7px;
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      background: #f7f3ed;
-      color: var(--text-muted);
-    }
-
-    .chip.good {
-      border-color: var(--accent-soft);
-      color: var(--accent-strong);
-      background: #f9f3ea;
-    }
-
-    .outfit-preview {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .outfit-slot {
-      width: 90px;
-      border-radius: 12px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      background: #fdfbf7;
-      font-size: 10px;
-      overflow: hidden;
-      text-align: center;
-    }
-
-    .outfit-slot img {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      display: block;
-    }
-
-    .outfit-slot span {
-      display: block;
-      padding: 3px 6px 5px;
-      color: var(--text-muted);
-    }
-
-    .outfit-footer {
+    .error {
       margin-top: 8px;
       font-size: 11px;
-      color: var(--text-muted);
+      color: #b44a3d;
     }
 
-    .saved-outfits {
-      margin-top: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      max-height: 260px;
-      overflow-y: auto;
-    }
-
-    .saved-card {
-      border-radius: 12px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      background: #f7f3ed;
-      padding: 8px;
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .saved-meta {
-      flex: 1;
+    .success {
+      margin-top: 8px;
       font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .saved-meta strong {
-      display: block;
-      color: var(--text-main);
-      font-size: 12px;
-      margin-bottom: 2px;
-      font-weight: 500;
-    }
-
-    .saved-thumbs {
-      display: flex;
-      gap: 4px;
-    }
-
-    .saved-thumbs img {
-      width: 40px;
-      height: 40px;
-      border-radius: 9px;
-      object-fit: cover;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      background: #f0ebe3;
-    }
-
-    .tiny-button {
-      font-size: 10px;
-      padding: 3px 7px;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      background: #fdfbf7;
-      color: var(--text-muted);
-      cursor: pointer;
-    }
-
-    .tiny-button:hover {
-      border-color: var(--accent-soft);
-      color: var(--accent-strong);
-      background: #f9f3ee;
-    }
-
-    .helper-text {
-      margin-top: 4px;
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .profile-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 6px;
-    }
-
-    .profile-row input {
-      flex: 1;
-    }
-
-    .status-line {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 6px;
-    }
-
-    hr {
-      border: none;
-      border-top: 1px solid rgba(0, 0, 0, 0.06);
-      margin: 14px 0;
+      color: #527554;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">
-    <div class="logo-mark"></div>
-    <div>
-      <div class="logo-text-main">OOTD</div>
-      <div class="logo-text-sub">AI closet stylist</div>
+<div class="shell">
+  <div class="inner">
+    <div class="logo-row">
+      <div class="logo-mark"></div>
+      <div>
+        <div class="logo-main">OOTD</div>
+        <div class="logo-sub">AI closet stylist</div>
+      </div>
+    </div>
+    <div class="title">
+      Create an account or sign in. Each profile keeps its own closet & outfits.
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" id="tabSignup">Create account</button>
+      <button class="tab" id="tabLogin">Sign in</button>
+    </div>
+
+    <!-- Signup form -->
+    <div id="signupForm">
+      <div class="field-label">Name</div>
+      <input id="signupName" type="text" placeholder="What should we call you?" />
+
+      <div class="field-label">Email</div>
+      <input id="signupEmail" type="email" placeholder="you@example.com" />
+
+      <div class="field-label">Password</div>
+      <input id="signupPassword" type="password" placeholder="Create a simple password" />
+
+      <button id="signupBtn" type="button">Start OOTD</button>
+      <div class="helper">
+        This is a local prototype – accounts live only in this browser.
+      </div>
+      <div id="signupMessage"></div>
+    </div>
+
+    <!-- Login form -->
+    <div id="loginForm" style="display:none;">
+      <div class="field-label">Email</div>
+      <input id="loginEmail" type="email" placeholder="you@example.com" />
+
+      <div class="field-label">Password</div>
+      <input id="loginPassword" type="password" placeholder="Your password" />
+
+      <button id="loginBtn" type="button">Continue</button>
+      <div class="helper">
+        Use the same email & password you created on this device.
+      </div>
+      <div id="loginMessage"></div>
     </div>
   </div>
-  <div class="profile-chip">
-    <span id="profileNameLabel">Guest</span>
-    <span>◦</span>
-  </div>
-</header>
-
-<main>
-  <!-- LEFT: Closet & Builder -->
-  <section class="panel">
-    <div class="panel-inner">
-      <h2>Closet</h2>
-      <div class="panel-subtitle">
-        Photograph your pieces, tag them once, and OOTD remembers your wardrobe.
-      </div>
-
-      <!-- "Login"/profile (local only) -->
-      <div class="field-label">Profile name</div>
-      <div class="profile-row">
-        <input id="profileNameInput" type="text" placeholder="e.g., Will, Sam, etc." />
-        <button class="button-secondary" id="saveProfileBtn" type="button">Save</button>
-      </div>
-      <div class="status-line" id="profileStatus">Saved only on this device.</div>
-
-      <!-- Add item -->
-      <div class="field-label">Add clothing item</div>
-      <input id="imageInput" type="file" accept="image/*" />
-
-      <div class="two-col">
-        <div>
-          <div class="field-label">Category</div>
-          <select id="category">
-            <option value="">Select</option>
-            <option value="Top">Top</option>
-            <option value="Bottom">Bottom</option>
-            <option value="Shoes">Shoes</option>
-            <option value="Jacket">Jacket</option>
-            <option value="Dress">Dress</option>
-          </select>
-        </div>
-        <div>
-          <div class="field-label">Style</div>
-          <select id="style">
-            <option value="">Select</option>
-            <option value="Casual">Casual</option>
-            <option value="Formal">Formal</option>
-            <option value="Streetwear">Streetwear</option>
-            <option value="Sporty">Sporty</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="two-col">
-        <div>
-          <div class="field-label">Color</div>
-          <input id="color" type="text" placeholder="e.g., black, white, beige" />
-        </div>
-        <div>
-          <div class="field-label">Warmth</div>
-          <select id="warmth">
-            <option value="">Any</option>
-            <option value="Light">Light / summer</option>
-            <option value="Medium">Medium</option>
-            <option value="Warm">Warm / winter</option>
-          </select>
-        </div>
-      </div>
-
-      <button id="addItemBtn" type="button">+ Add to closet</button>
-      <div class="helper-text">
-        Use simple color names like <strong>black</strong>, <strong>white</strong>, <strong>beige</strong> for better matching.
-      </div>
-
-      <div class="field-label" style="margin-top: 16px;">Items</div>
-      <div id="closetGrid" class="closet-grid"></div>
-
-      <!-- Outfit builder (drag & drop) -->
-      <div class="field-label" style="margin-top: 18px;">Outfit builder</div>
-      <div id="builderDropzone" class="builder-dropzone">
-        <span class="helper-text">Drag pieces from your closet here to build a look.</span>
-      </div>
-      <button id="saveBuilderOutfitBtn" type="button" class="button-secondary">Save this outfit</button>
-    </div>
-  </section>
-
-  <!-- RIGHT: Generator & Saved Outfits -->
-  <section class="panel">
-    <div class="panel-inner">
-      <h2>Outfits</h2>
-      <div class="panel-subtitle">
-        Describe the mood. OOTD suggests a look from what you already own.
-      </div>
-
-      <div class="field-label">Prompt</div>
-      <textarea id="prompt" placeholder="e.g., “Casual winter outfit for school with my white sneakers”"></textarea>
-
-      <div class="two-col">
-        <div>
-          <div class="field-label">Vibe</div>
-          <select id="vibeSelect">
-            <option value="">Auto</option>
-            <option value="Casual">Casual</option>
-            <option value="Formal">Formal</option>
-            <option value="Streetwear">Streetwear</option>
-            <option value="Sporty">Sporty</option>
-            <option value="Date">Date night</option>
-            <option value="Work">Work / smart casual</option>
-          </select>
-        </div>
-        <div>
-          <div class="field-label">Weather</div>
-          <select id="weatherSelect">
-            <option value="">Any</option>
-            <option value="Cold">Cold / winter</option>
-            <option value="Warm">Warm / summer</option>
-            <option value="Rainy">Rainy</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="field-label">Constraints</div>
-      <input id="mustIncludeInput" type="text" placeholder="e.g., “include black jeans”, “use white sneakers”" />
-
-      <button id="generateOutfitBtn" type="button">Generate outfit</button>
-
-      <div class="chips-row">
-        <div class="chip good">Color harmony</div>
-        <div class="chip good">Weather-aware</div>
-        <div class="chip">Rule-based (on-device)</div>
-      </div>
-
-      <div id="outfitPreviewArea" class="outfit-preview"></div>
-      <div id="outfitFooter" class="outfit-footer"></div>
-
-      <hr />
-
-      <div class="field-label">Saved outfits</div>
-      <div id="savedOutfitsContainer" class="saved-outfits"></div>
-    </div>
-  </section>
-</main>
+</div>
 
 <script>
-  // ---------- Storage Keys ----------
-  const CLOSET_KEY = "ootd_closet";
-  const OUTFITS_KEY = "ootd_outfits";
-  const PROFILE_KEY = "ootd_profile";
+  const USERS_KEY = "ootd_users";
+  const CURRENT_USER_KEY = "ootd_currentUserId";
 
-  // ---------- State ----------
-  let closet = [];
-  let savedOutfits = [];
-  let builderItems = [];
-
-  // ---------- Helpers ----------
-  function loadState() {
+  function loadUsers() {
     try {
-      const closetRaw = localStorage.getItem(CLOSET_KEY);
-      closet = closetRaw ? JSON.parse(closetRaw) : [];
+      const raw = localStorage.getItem(USERS_KEY);
+      return raw ? JSON.parse(raw) : [];
     } catch {
-      closet = [];
-    }
-
-    try {
-      const outfitsRaw = localStorage.getItem(OUTFITS_KEY);
-      savedOutfits = outfitsRaw ? JSON.parse(outfitsRaw) : [];
-    } catch {
-      savedOutfits = [];
-    }
-
-    try {
-      const profileRaw = localStorage.getItem(PROFILE_KEY);
-      const profile = profileRaw ? JSON.parse(profileRaw) : null;
-      if (profile && profile.name) {
-        document.getElementById("profileNameInput").value = profile.name;
-        document.getElementById("profileNameLabel").textContent = profile.name;
-        document.getElementById("profileStatus").textContent =
-          "Profile name loaded from this browser.";
-      }
-    } catch {
-      // ignore
+      return [];
     }
   }
 
-  function saveCloset() {
-    localStorage.setItem(CLOSET_KEY, JSON.stringify(closet));
-  }
-
-  function saveOutfits() {
-    localStorage.setItem(OUTFITS_KEY, JSON.stringify(savedOutfits));
+  function saveUsers(users) {
+    localStorage.setItem(USERS_KEY, JSON.stringify(users));
   }
 
   function uuid() {
     return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
   }
 
-  function isNeutral(color) {
-    if (!color) return false;
-    const c = color.toLowerCase();
-    const neutrals = ["black", "white", "grey", "gray", "beige", "cream", "navy", "denim", "brown", "tan", "khaki"];
-    return neutrals.some(n => c.includes(n));
-  }
+  // Tab switching
+  const tabSignup = document.getElementById("tabSignup");
+  const tabLogin = document.getElementById("tabLogin");
+  const signupForm = document.getElementById("signupForm");
+  const loginForm = document.getElementById("loginForm");
 
-  function warmScore(warmth) {
-    if (!warmth) return 1;
-    if (warmth === "Light") return 0.4;
-    if (warmth === "Medium") return 1;
-    if (warmth === "Warm") return 1.6;
-    return 1;
-  }
-
-  // ---------- Profile ----------
-  document.getElementById("saveProfileBtn").addEventListener("click", () => {
-    const name = document.getElementById("profileNameInput").value.trim() || "Guest";
-    localStorage.setItem(PROFILE_KEY, JSON.stringify({ name }));
-    document.getElementById("profileNameLabel").textContent = name;
-    document.getElementById("profileStatus").textContent = "Saved. This stays on this device.";
+  tabSignup.addEventListener("click", () => {
+    tabSignup.classList.add("active");
+    tabLogin.classList.remove("active");
+    signupForm.style.display = "block";
+    loginForm.style.display = "none";
   });
 
-  // ---------- Closet ----------
-  function renderCloset() {
-    const grid = document.getElementById("closetGrid");
-    grid.innerHTML = "";
-    if (!closet.length) {
-      grid.innerHTML = "<div class='helper-text'>No items yet. Add a few pieces to get started.</div>";
-      return;
-    }
-
-    closet.forEach(item => {
-      const card = document.createElement("div");
-      card.className = "item-card";
-      card.draggable = true;
-      card.dataset.id = item.id;
-
-      const img = document.createElement("img");
-      img.src = item.image;
-      img.alt = item.category;
-      img.className = "item-img";
-
-      const meta = document.createElement("div");
-      meta.className = "item-meta";
-      meta.innerHTML = `
-        <strong>${item.category}</strong>
-        <span>${item.color || "No color"}</span>
-        <span>${item.style || "No style"}</span>
-        <span>${item.warmth || "Any season"}</span>
-      `;
-
-      const badge = document.createElement("div");
-      badge.className = "badge" + (item.isNeutral ? " neutral" : "");
-      badge.textContent = item.isNeutral ? "Neutral" : "Accent";
-
-      const badgeStyle = document.createElement("div");
-      badgeStyle.className = "badge-style";
-      badgeStyle.textContent = item.style || "Style";
-
-      card.appendChild(img);
-      card.appendChild(meta);
-      card.appendChild(badge);
-      card.appendChild(badgeStyle);
-
-      card.addEventListener("dragstart", e => {
-        e.dataTransfer.setData("text/plain", item.id);
-      });
-
-      grid.appendChild(card);
-    });
-  }
-
-  function renderBuilder() {
-    const zone = document.getElementById("builderDropzone");
-    zone.innerHTML = "";
-    if (!builderItems.length) {
-      const span = document.createElement("span");
-      span.className = "helper-text";
-      span.textContent = "Drag pieces from your closet here to build a look.";
-      zone.appendChild(span);
-      return;
-    }
-
-    builderItems.forEach(item => {
-      const div = document.createElement("div");
-      div.className = "builder-item";
-      div.innerHTML = `
-        <img src="${item.image}" alt="${item.category}" />
-        <span>${item.category}</span>
-      `;
-      zone.appendChild(div);
-    });
-  }
-
-  function setupBuilderDropzone() {
-    const zone = document.getElementById("builderDropzone");
-    zone.addEventListener("dragover", e => {
-      e.preventDefault();
-      zone.classList.add("is-over");
-    });
-    zone.addEventListener("dragleave", () => {
-      zone.classList.remove("is-over");
-    });
-    zone.addEventListener("drop", e => {
-      e.preventDefault();
-      zone.classList.remove("is-over");
-      const id = e.dataTransfer.getData("text/plain");
-      const item = closet.find(i => i.id === id);
-      if (!item) return;
-      if (!builderItems.some(b => b.id === id)) {
-        builderItems.push(item);
-        renderBuilder();
-      }
-    });
-  }
-
-  document.getElementById("addItemBtn").addEventListener("click", () => {
-    const fileInput = document.getElementById("imageInput");
-    const file = fileInput.files[0];
-    const category = document.getElementById("category").value;
-    const style = document.getElementById("style").value;
-    const color = document.getElementById("color").value.trim();
-    const warmth = document.getElementById("warmth").value;
-
-    if (!file || !category || !style || !color) {
-      alert("Please add an image and fill in category, style, and color.");
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = e => {
-      const base64 = e.target.result;
-      const item = {
-        id: uuid(),
-        image: base64,
-        category,
-        style,
-        color,
-        warmth,
-        isNeutral: isNeutral(color)
-      };
-      closet.push(item);
-      saveCloset();
-      renderCloset();
-      fileInput.value = "";
-      document.getElementById("color").value = "";
-      document.getElementById("category").value = "";
-      document.getElementById("style").value = "";
-      document.getElementById("warmth").value = "";
-    };
-    reader.readAsDataURL(file);
+  tabLogin.addEventListener("click", () => {
+    tabLogin.classList.add("active");
+    tabSignup.classList.remove("active");
+    signupForm.style.display = "none";
+    loginForm.style.display = "block";
   });
 
-  // ---------- "AI-ish" Outfit Generator ----------
-  function analyzePrompt(prompt, vibeSelect, weatherSelect, mustIncludeText) {
-    const lower = (prompt || "").toLowerCase();
-    const vibe = vibeSelect || (
-      lower.includes("formal") ? "Formal" :
-      lower.includes("street") || lower.includes("streetwear") ? "Streetwear" :
-      lower.includes("sport") || lower.includes("gym") ? "Sporty" :
-      lower.includes("date") ? "Date" :
-      lower.includes("work") || lower.includes("office") ? "Work" :
-      "Casual"
-    );
+  // Signup
+  document.getElementById("signupBtn").addEventListener("click", () => {
+    const name = document.getElementById("signupName").value.trim();
+    const email = document.getElementById("signupEmail").value.trim().toLowerCase();
+    const password = document.getElementById("signupPassword").value;
 
-    let weather = weatherSelect || "";
-    if (!weather) {
-      if (lower.includes("cold") || lower.includes("winter")) weather = "Cold";
-      else if (lower.includes("hot") || lower.includes("summer")) weather = "Warm";
-      else if (lower.includes("rain") || lower.includes("rainy")) weather = "Rainy";
-    }
+    const msg = document.getElementById("signupMessage");
+    msg.className = "";
+    msg.textContent = "";
 
-    const includeHints = (mustIncludeText || "").toLowerCase();
-
-    return { vibe, weather, includeHints };
-  }
-
-  function pickOutfitFromCloset(context) {
-    if (!closet.length) return [];
-
-    const styleMap = {
-      Casual: ["Casual", "Streetwear", "Sporty"],
-      Formal: ["Formal"],
-      Streetwear: ["Streetwear", "Casual"],
-      Sporty: ["Sporty", "Casual"],
-      Date: ["Casual", "Formal", "Streetwear"],
-      Work: ["Formal", "Casual"]
-    };
-    const allowedStyles = styleMap[context.vibe] || ["Casual", "Streetwear", "Sporty", "Formal"];
-
-    let filtered = closet.filter(i => allowedStyles.includes(i.style));
-
-    if (context.weather === "Cold") {
-      filtered = filtered.filter(i => warmScore(i.warmth) >= 1 || i.category === "Jacket");
-    } else if (context.weather === "Warm") {
-      filtered = filtered.filter(i => warmScore(i.warmth) <= 1.1);
-    } else if (context.weather === "Rainy") {
-      filtered = filtered.filter(i => i.category !== "Dress" || warmScore(i.warmth) >= 1);
-    }
-
-    if (!filtered.length) filtered = [...closet];
-
-    if (context.includeHints) {
-      const hint = context.includeHints;
-      filtered = filtered.sort((a, b) => {
-        const aScore =
-          (hint.includes("white") && a.color.toLowerCase().includes("white") ? 1 : 0) +
-          (hint.includes("black") && a.color.toLowerCase().includes("black") ? 1 : 0) +
-          (hint.includes("jean") && a.category === "Bottom" && a.color.toLowerCase().includes("denim") ? 1 : 0) +
-          (hint.includes("sneaker") && a.category === "Shoes" ? 1 : 0);
-        const bScore =
-          (hint.includes("white") && b.color.toLowerCase().includes("white") ? 1 : 0) +
-          (hint.includes("black") && b.color.toLowerCase().includes("black") ? 1 : 0) +
-          (hint.includes("jean") && b.category === "Bottom" && b.color.toLowerCase().includes("denim") ? 1 : 0) +
-          (hint.includes("sneaker") && b.category === "Shoes" ? 1 : 0);
-        return bScore - aScore;
-      });
-    }
-
-    const byCategory = {
-      Top: filtered.filter(i => i.category === "Top"),
-      Bottom: filtered.filter(i => i.category === "Bottom"),
-      Shoes: filtered.filter(i => i.category === "Shoes"),
-      Jacket: filtered.filter(i => i.category === "Jacket"),
-      Dress: filtered.filter(i => i.category === "Dress")
-    };
-
-    function pickRandom(arr) {
-      if (!arr.length) return null;
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
-
-    let outfit = [];
-
-    const dressPrompt = (context.vibe === "Date" || context.vibe === "Formal") &&
-      closet.some(i => i.category === "Dress");
-
-    if (dressPrompt) {
-      const dress = pickRandom(byCategory.Dress);
-      if (dress) outfit.push(dress);
-    } else {
-      const top = pickRandom(byCategory.Top);
-      const bottom = pickRandom(byCategory.Bottom);
-      if (top) outfit.push(top);
-      if (bottom) outfit.push(bottom);
-    }
-
-    let shoes = pickRandom(byCategory.Shoes);
-    if (!shoes && closet.find(i => i.category === "Shoes")) {
-      shoes = closet.find(i => i.category === "Shoes");
-    }
-    if (shoes) outfit.push(shoes);
-
-    if (context.weather === "Cold") {
-      const jacket = pickRandom(byCategory.Jacket);
-      if (jacket) outfit.push(jacket);
-    }
-
-    const accents = outfit.filter(i => !i.isNeutral);
-    if (accents.length > 1) {
-      const keep = accents[0];
-      outfit = outfit.map(item => {
-        if (!item.isNeutral && item !== keep) {
-          const neutralsSameCat = closet.filter(
-            i => i.category === item.category && i.isNeutral
-          );
-          if (neutralsSameCat.length) {
-            return neutralsSameCat[0];
-          }
-        }
-        return item;
-      });
-    }
-
-    return outfit;
-  }
-
-  function renderGeneratedOutfit(outfit, context) {
-    const area = document.getElementById("outfitPreviewArea");
-    const footer = document.getElementById("outfitFooter");
-    area.innerHTML = "";
-    footer.innerHTML = "";
-
-    if (!outfit || !outfit.length) {
-      footer.textContent = "No outfit found with your current filters. Try loosening the prompt or weather.";
+    if (!name || !email || !password) {
+      msg.className = "error";
+      msg.textContent = "Please fill in name, email, and password.";
       return;
     }
 
-    outfit.forEach(item => {
-      const slot = document.createElement("div");
-      slot.className = "outfit-slot";
-      slot.innerHTML = `
-        <img src="${item.image}" alt="${item.category}" />
-        <span>${item.category} · ${item.color}</span>
-      `;
-      area.appendChild(slot);
-    });
-
-    const vibeLabel = context.vibe || "Casual";
-    const weatherLabel = context.weather || "any weather";
-
-    footer.innerHTML = `
-      Suggesting a <strong>${vibeLabel.toLowerCase()}</strong> look for <strong>${weatherLabel.toLowerCase()}</strong>.
-      Neutrals are prioritised, with at most one accent piece.
-    `;
-  }
-
-  document.getElementById("generateOutfitBtn").addEventListener("click", () => {
-    const prompt = document.getElementById("prompt").value;
-    const vibeSelect = document.getElementById("vibeSelect").value;
-    const weatherSelect = document.getElementById("weatherSelect").value;
-    const mustIncludeText = document.getElementById("mustIncludeInput").value;
-
-    const context = analyzePrompt(prompt, vibeSelect, weatherSelect, mustIncludeText);
-    const outfit = pickOutfitFromCloset(context);
-    renderGeneratedOutfit(outfit, context);
-
-    builderItems = outfit.slice();
-    renderBuilder();
-  });
-
-  // ---------- Save builder outfit ----------
-  document.getElementById("saveBuilderOutfitBtn").addEventListener("click", () => {
-    if (!builderItems.length) {
-      alert("Drag at least one clothing item into the builder first.");
+    const users = loadUsers();
+    if (users.some(u => u.email === email)) {
+      msg.className = "error";
+      msg.textContent = "An account with this email already exists. Try signing in.";
       return;
     }
-    const name = prompt("Name this outfit (e.g., “Cozy winter look”):");
-    if (!name) return;
 
-    const outfit = {
+    const user = {
       id: uuid(),
       name,
-      createdAt: new Date().toISOString(),
-      itemIds: builderItems.map(i => i.id)
+      email,
+      password,       // prototype only – not secure
+      closet: [],
+      outfits: []
     };
-    savedOutfits.unshift(outfit);
-    saveOutfits();
-    renderSavedOutfits();
+
+    users.push(user);
+    saveUsers(users);
+    localStorage.setItem(CURRENT_USER_KEY, user.id);
+
+    msg.className = "success";
+    msg.textContent = "Account created. Redirecting to your closet...";
+
+    setTimeout(() => {
+      window.location.href = "app.html";
+    }, 600);
   });
 
-  function renderSavedOutfits() {
-    const container = document.getElementById("savedOutfitsContainer");
-    container.innerHTML = "";
-    if (!savedOutfits.length) {
-      container.innerHTML = "<div class='helper-text'>No saved outfits yet.</div>";
+  // Login
+  document.getElementById("loginBtn").addEventListener("click", () => {
+    const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+    const password = document.getElementById("loginPassword").value;
+
+    const msg = document.getElementById("loginMessage");
+    msg.className = "";
+    msg.textContent = "";
+
+    if (!email || !password) {
+      msg.className = "error";
+      msg.textContent = "Please enter email and password.";
       return;
     }
 
-    savedOutfits.forEach(outfit => {
-      const div = document.createElement("div");
-      div.className = "saved-card";
+    const users = loadUsers();
+    const user = users.find(u => u.email === email && u.password === password);
 
-      const thumbs = document.createElement("div");
-      thumbs.className = "saved-thumbs";
+    if (!user) {
+      msg.className = "error";
+      msg.textContent = "Account not found. Check your details or create a new account.";
+      return;
+    }
 
-      const items = outfit.itemIds
-        .map(id => closet.find(i => i.id === id))
-        .filter(Boolean)
-        .slice(0, 4);
+    localStorage.setItem(CURRENT_USER_KEY, user.id);
+    msg.className = "success";
+    msg.textContent = "Welcome back. Opening your closet...";
 
-      if (!items.length) {
-        thumbs.innerHTML = "<div class='helper-text'>Items missing from closet.</div>";
-      } else {
-        items.forEach(item => {
-          const img = document.createElement("img");
-          img.src = item.image;
-          img.alt = item.category;
-          thumbs.appendChild(img);
-        });
-      }
-
-      const meta = document.createElement("div");
-      meta.className = "saved-meta";
-      const date = new Date(outfit.createdAt);
-      meta.innerHTML = `
-        <strong>${outfit.name}</strong>
-        <span>${items.length} pieces · ${date.toLocaleDateString()}</span>
-      `;
-
-      const actions = document.createElement("div");
-      const loadBtn = document.createElement("button");
-      loadBtn.type = "button";
-      loadBtn.className = "tiny-button";
-      loadBtn.textContent = "Load";
-      loadBtn.addEventListener("click", () => {
-        builderItems = outfit.itemIds
-          .map(id => closet.find(i => i.id === id))
-          .filter(Boolean);
-        renderBuilder();
-      });
-
-      const deleteBtn = document.createElement("button");
-      deleteBtn.type = "button";
-      deleteBtn.className = "tiny-button";
-      deleteBtn.textContent = "Delete";
-      deleteBtn.style.marginLeft = "4px";
-      deleteBtn.addEventListener("click", () => {
-        if (confirm("Delete this outfit?")) {
-          savedOutfits = savedOutfits.filter(o => o.id !== outfit.id);
-          saveOutfits();
-          renderSavedOutfits();
-        }
-      });
-
-      actions.appendChild(loadBtn);
-      actions.appendChild(deleteBtn);
-
-      div.appendChild(thumbs);
-      div.appendChild(meta);
-      div.appendChild(actions);
-
-      container.appendChild(div);
-    });
-  }
-
-  // ---------- Init ----------
-  loadState();
-  renderCloset();
-  renderBuilder();
-  renderSavedOutfits();
-  setupBuilderDropzone();
+    setTimeout(() => {
+      window.location.href = "app.html";
+    }, 500);
+  });
 </script>
 
 </body>
