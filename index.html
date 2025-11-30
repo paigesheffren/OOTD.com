@@ -2,279 +2,181 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>OOTD – Sign in</title>
+  <title>OOTD – Sign In</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    :root {
-      --bg-main: #f5f2ec;
-      --bg-card: #fdfbf7;
-      --bg-muted: #f0ebe2;
-      --accent: #c6b49f;
-      --accent-soft: rgba(198, 180, 159, 0.35);
-      --accent-strong: #b79f86;
-      --text-main: #2b2a28;
-      --text-muted: #8c867d;
-      --border-subtle: rgba(0, 0, 0, 0.06);
-      --radius-xl: 18px;
-      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.04);
-      --transition-fast: 0.2s ease;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-      background: radial-gradient(circle at top, #fdfaf6 0, #f5f2ec 55%);
-      color: var(--text-main);
-      min-height: 100vh;
+      background: #f6f3ed;
+      color: #2b2a28;
       display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 20px;
-    }
-
-    .shell {
-      max-width: 420px;
-      width: 100%;
-      background: var(--bg-card);
-      border-radius: 22px;
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-soft);
-      padding: 22px 20px 24px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .shell::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.85) 0, transparent 60%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .logo-row {
-      display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
+      min-height: 100vh;
+      padding: 16px;
     }
 
-    .logo-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      border: 1px solid var(--border-subtle);
-      background: radial-gradient(circle at top left, #fdfbf7 0, #e9e0d3 65%);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .logo-mark::before {
-      content: "";
-      position: absolute;
-      inset: 22%;
-      border-radius: 14px;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    .logo-main {
-      font-weight: 600;
-      font-size: 19px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .logo-sub {
-      font-size: 11px;
-      color: var(--text-muted);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .title {
-      margin-top: 4px;
-      font-size: 15px;
-      color: var(--text-muted);
-    }
-
-    .tabs {
-      display: flex;
-      gap: 4px;
-      margin-top: 18px;
-      padding: 3px;
-      border-radius: 999px;
-      background: #f7f3ed;
-      border: 1px solid var(--border-subtle);
-    }
-
-    .tab {
-      flex: 1;
-      text-align: center;
-      padding: 7px 4px;
-      border-radius: 999px;
-      font-size: 12px;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    .tab.active {
-      background: #fdfbf7;
-      color: var(--text-main);
-      font-weight: 500;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
-    }
-
-    .field-label {
-      font-size: 11px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      margin-top: 14px;
-      margin-bottom: 4px;
-    }
-
-    input,
-    button {
+    .container {
+      background: #ffffff;
+      padding: 26px 24px 20px;
+      border-radius: 18px;
       width: 100%;
-      border-radius: 11px;
-      border: 1px solid var(--border-subtle);
-      background: #fdfbf7;
-      color: var(--text-main);
-      font-size: 14px;
-      padding: 9px 11px;
-      outline: none;
-      transition: border var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), transform 0.12s ease-out;
+      max-width: 380px;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.04);
     }
 
-    input::placeholder {
-      color: #b2aaa0;
+    h1 {
+      font-size: 24px;
+      margin: 0;
+      text-align: center;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #7b746a;
+      margin-top: 4px;
+      margin-bottom: 18px;
+      font-size: 13px;
+    }
+
+    label {
+      font-size: 12px;
+      display: block;
+      margin-top: 12px;
+      color: #5e5a54;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    input {
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 10px;
+      border: 1px solid #d8d2c9;
+      margin-top: 5px;
+      font-size: 14px;
     }
 
     input:focus {
-      border-color: var(--accent-soft);
-      box-shadow: 0 0 0 1px rgba(198, 180, 159, 0.28);
-      background: #fefcf8;
+      outline: none;
+      border-color: #c6b49f;
+      box-shadow: 0 0 0 2px rgba(198,180,159,0.25);
     }
 
     button {
-      background: linear-gradient(135deg, #e6dbce, #d7c7b2);
-      border: 1px solid rgba(0, 0, 0, 0.04);
-      font-weight: 500;
-      letter-spacing: 0.16em;
+      width: 100%;
+      padding: 11px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 18px;
+      cursor: pointer;
+      background: #d5c7b4;
+      color: #2b2a28;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       font-size: 11px;
-      margin-top: 16px;
-      cursor: pointer;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+      font-weight: 600;
     }
 
     button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
+      background: #c9b9a3;
     }
 
-    button:active {
-      transform: translateY(0);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+    .toggle {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 13px;
+      cursor: pointer;
+      color: #857e75;
+    }
+    .toggle:hover {
+      color: #2b2a28;
     }
 
-    .helper {
-      margin-top: 6px;
+    .small-btn {
+      margin-top: 10px;
       font-size: 11px;
-      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: #f4efe6;
     }
 
-    .error {
-      margin-top: 8px;
+    .note {
+      margin-top: 10px;
       font-size: 11px;
-      color: #b44a3d;
-    }
-
-    .success {
-      margin-top: 8px;
-      font-size: 11px;
-      color: #527554;
+      color: #9a9187;
+      text-align: center;
     }
   </style>
 </head>
+
 <body>
 
-<div class="shell">
-  <div class="inner">
-    <div class="logo-row">
-      <div class="logo-mark"></div>
-      <div>
-        <div class="logo-main">OOTD</div>
-        <div class="logo-sub">AI closet stylist</div>
-      </div>
+<div class="container">
+  <h1>OOTD</h1>
+  <div class="subtitle">Your AI Closet Stylist</div>
+
+  <!-- SIGNUP -->
+  <div id="signup-section">
+    <label>Name</label>
+    <input id="signupName" type="text" placeholder="Your name" />
+
+    <label>Password</label>
+    <input id="signupPassword" type="password" placeholder="Create password" />
+
+    <button id="createAccountBtn">Create account</button>
+
+    <div class="toggle" onclick="switchMode('login')">
+      Already have an account? Sign in
     </div>
-    <div class="title">
-      Create an account or sign in. Each profile keeps its own closet & outfits.
+    <button class="small-btn" type="button" onclick="resetAll()">
+      Reset all accounts (debug)
+    </button>
+    <div class="note">
+      Accounts & closets are saved only in this browser.
     </div>
+  </div>
 
-    <div class="tabs">
-      <button class="tab active" id="tabSignup">Create account</button>
-      <button class="tab" id="tabLogin">Sign in</button>
+  <!-- LOGIN -->
+  <div id="login-section" style="display:none;">
+    <label>Name</label>
+    <input id="loginName" type="text" placeholder="Your name" />
+
+    <label>Password</label>
+    <input id="loginPassword" type="password" placeholder="Your password" />
+
+    <button id="loginBtn">Sign in</button>
+
+    <div class="toggle" onclick="switchMode('signup')">
+      Create a new account
     </div>
-
-    <!-- Signup form -->
-    <div id="signupForm">
-      <div class="field-label">Name</div>
-      <input id="signupName" type="text" placeholder="What should we call you?" />
-
-      <div class="field-label">Email</div>
-      <input id="signupEmail" type="email" placeholder="you@example.com" />
-
-      <div class="field-label">Password</div>
-      <input id="signupPassword" type="password" placeholder="Create a simple password" />
-
-      <button id="signupBtn" type="button">Start OOTD</button>
-      <div class="helper">
-        This is a local prototype – accounts live only in this browser.
-      </div>
-      <div id="signupMessage"></div>
-    </div>
-
-    <!-- Login form -->
-    <div id="loginForm" style="display:none;">
-      <div class="field-label">Email</div>
-      <input id="loginEmail" type="email" placeholder="you@example.com" />
-
-      <div class="field-label">Password</div>
-      <input id="loginPassword" type="password" placeholder="Your password" />
-
-      <button id="loginBtn" type="button">Continue</button>
-      <div class="helper">
-        Use the same email & password you created on this device.
-      </div>
-      <div id="loginMessage"></div>
+    <button class="small-btn" type="button" onclick="resetAll()">
+      Reset all accounts (debug)
+    </button>
+    <div class="note">
+      If login fails, you can reset and create a fresh account.
     </div>
   </div>
 </div>
 
 <script>
   const USERS_KEY = "ootd_users";
-  const CURRENT_USER_KEY = "ootd_currentUserId";
+  const CURRENT_USER_KEY = "ootd_current_user";
+
+  function switchMode(mode) {
+    document.getElementById("signup-section").style.display =
+      mode === "signup" ? "block" : "none";
+    document.getElementById("login-section").style.display =
+      mode === "login" ? "block" : "none";
+  }
 
   function loadUsers() {
     try {
-      const raw = localStorage.getItem(USERS_KEY);
-      return raw ? JSON.parse(raw) : [];
+      return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
     } catch {
       return [];
     }
@@ -284,105 +186,78 @@
     localStorage.setItem(USERS_KEY, JSON.stringify(users));
   }
 
-  function uuid() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  function resetAll() {
+    if (!confirm("This will remove all OOTD accounts and closets on this device. Continue?")) {
+      return;
+    }
+    localStorage.removeItem(USERS_KEY);
+    localStorage.removeItem(CURRENT_USER_KEY);
+    alert("All OOTD data cleared. You can create a fresh account.");
   }
 
-  // Tab switching
-  const tabSignup = document.getElementById("tabSignup");
-  const tabLogin = document.getElementById("tabLogin");
-  const signupForm = document.getElementById("signupForm");
-  const loginForm = document.getElementById("loginForm");
+  function createId() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+  }
 
-  tabSignup.addEventListener("click", () => {
-    tabSignup.classList.add("active");
-    tabLogin.classList.remove("active");
-    signupForm.style.display = "block";
-    loginForm.style.display = "none";
-  });
-
-  tabLogin.addEventListener("click", () => {
-    tabLogin.classList.add("active");
-    tabSignup.classList.remove("active");
-    signupForm.style.display = "none";
-    loginForm.style.display = "block";
-  });
-
-  // Signup
-  document.getElementById("signupBtn").addEventListener("click", () => {
+  // CREATE ACCOUNT
+  document.getElementById("createAccountBtn").addEventListener("click", () => {
     const name = document.getElementById("signupName").value.trim();
-    const email = document.getElementById("signupEmail").value.trim().toLowerCase();
     const password = document.getElementById("signupPassword").value;
 
-    const msg = document.getElementById("signupMessage");
-    msg.className = "";
-    msg.textContent = "";
-
-    if (!name || !email || !password) {
-      msg.className = "error";
-      msg.textContent = "Please fill in name, email, and password.";
+    if (!name || !password) {
+      alert("Please enter a name and password.");
       return;
     }
 
-    const users = loadUsers();
-    if (users.some(u => u.email === email)) {
-      msg.className = "error";
-      msg.textContent = "An account with this email already exists. Try signing in.";
+    let users = loadUsers();
+
+    if (users.some(u => u.name.toLowerCase() === name.toLowerCase())) {
+      alert("An account with that name already exists. Try logging in.");
+      switchMode("login");
+      document.getElementById("loginName").value = name;
       return;
     }
 
-    const user = {
-      id: uuid(),
+    const newUser = {
+      id: createId(),
       name,
-      email,
-      password,       // prototype only – not secure
+      password,
       closet: [],
       outfits: []
     };
 
-    users.push(user);
+    users.push(newUser);
     saveUsers(users);
-    localStorage.setItem(CURRENT_USER_KEY, user.id);
 
-    msg.className = "success";
-    msg.textContent = "Account created. Redirecting to your closet...";
+    localStorage.setItem(CURRENT_USER_KEY, newUser.id);
 
-    setTimeout(() => {
-      window.location.href = "app.html";
-    }, 600);
+    window.location.href = "app.html";
   });
 
-  // Login
+  // LOGIN
   document.getElementById("loginBtn").addEventListener("click", () => {
-    const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+    const name = document.getElementById("loginName").value.trim();
     const password = document.getElementById("loginPassword").value;
 
-    const msg = document.getElementById("loginMessage");
-    msg.className = "";
-    msg.textContent = "";
-
-    if (!email || !password) {
-      msg.className = "error";
-      msg.textContent = "Please enter email and password.";
+    if (!name || !password) {
+      alert("Please enter both name and password.");
       return;
     }
 
-    const users = loadUsers();
-    const user = users.find(u => u.email === email && u.password === password);
+    let users = loadUsers();
+
+    const user = users.find(
+      u => u.name.toLowerCase() === name.toLowerCase() && u.password === password
+    );
 
     if (!user) {
-      msg.className = "error";
-      msg.textContent = "Account not found. Check your details or create a new account.";
+      alert("No matching account found. Check spelling/password or reset and create a new one.");
       return;
     }
 
     localStorage.setItem(CURRENT_USER_KEY, user.id);
-    msg.className = "success";
-    msg.textContent = "Welcome back. Opening your closet...";
 
-    setTimeout(() => {
-      window.location.href = "app.html";
-    }, 500);
+    window.location.href = "app.html";
   });
 </script>
 
