@@ -2,21 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AI Outfit Stylist – Web App</title>
+  <title>OOTD – AI Closet Stylist</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
-      --bg-main: #050608;
-      --bg-elevated: #0d1016;
-      --bg-card: #151925;
-      --accent: #3cff9b;
-      --accent-soft: rgba(60, 255, 155, 0.18);
-      --accent-strong: #1fe283;
-      --text-main: #f9fafb;
-      --text-muted: #9da4b4;
-      --border-subtle: rgba(255, 255, 255, 0.08);
+      --bg-main: #f5f2ec;
+      --bg-page: #f9f6f0;
+      --bg-card: #fdfbf7;
+      --bg-muted: #f0ebe2;
+      --accent: #c6b49f;
+      --accent-soft: rgba(198, 180, 159, 0.35);
+      --accent-strong: #b79f86;
+      --text-main: #2b2a28;
+      --text-muted: #8c867d;
+      --border-subtle: rgba(0, 0, 0, 0.06);
       --radius-xl: 18px;
-      --shadow-soft: 0 18px 55px rgba(0, 0, 0, 0.7);
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.04);
       --transition-fast: 0.2s ease;
     }
 
@@ -27,7 +28,7 @@
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-      background: radial-gradient(circle at top, #101424 0, #050608 55%);
+      background: radial-gradient(circle at top, #fdfaf6 0, #f5f2ec 55%);
       color: var(--text-main);
       min-height: 100vh;
     }
@@ -36,8 +37,8 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      backdrop-filter: blur(18px);
-      background: linear-gradient(to right, rgba(5, 6, 8, 0.96), rgba(9, 14, 23, 0.96));
+      backdrop-filter: blur(16px);
+      background: rgba(253, 250, 246, 0.94);
       border-bottom: 1px solid var(--border-subtle);
       padding: 14px 18px;
       display: flex;
@@ -55,47 +56,44 @@
       width: 34px;
       height: 34px;
       border-radius: 12px;
-      border: 1px solid var(--accent-soft);
-      background: radial-gradient(circle at top left, var(--accent) 0, #101624 52%);
-      box-shadow: 0 0 22px rgba(60, 255, 155, 0.4);
+      border: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at top left, #fdfbf7 0, #e9e0d3 65%);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
       position: relative;
       overflow: hidden;
-      animation: floatPulse 3.2s ease-in-out infinite;
     }
 
     .logo-mark::before {
       content: "";
       position: absolute;
-      inset: 20%;
-      border-radius: 999px;
-      border: 2px solid rgba(5, 6, 8, 0.7);
-      border-left-color: transparent;
-      border-bottom-color: transparent;
-      transform: rotate(-18deg);
+      inset: 22%;
+      border-radius: 14px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
     }
 
-    @keyframes floatPulse {
-      0%, 100% {
-        transform: translateY(0) scale(1);
-        box-shadow: 0 0 15px rgba(60, 255, 155, 0.4);
-      }
-      50% {
-        transform: translateY(-3px) scale(1.03);
-        box-shadow: 0 0 28px rgba(60, 255, 155, 0.7);
-      }
+    .logo-mark::after {
+      content: "";
+      position: absolute;
+      left: 24%;
+      right: 24%;
+      bottom: 26%;
+      height: 2px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.18);
     }
 
     .logo-text-main {
-      font-weight: 650;
+      font-weight: 600;
       font-size: 18px;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
     .logo-text-sub {
       font-size: 11px;
       color: var(--text-muted);
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
     }
 
     .profile-chip {
@@ -105,13 +103,14 @@
       padding: 7px 11px;
       border-radius: 999px;
       border: 1px solid var(--border-subtle);
-      background: rgba(9, 14, 23, 0.92);
+      background: rgba(253, 250, 246, 0.9);
       font-size: 12px;
+      color: var(--text-muted);
     }
 
-    .profile-chip span {
-      color: var(--accent);
-      font-weight: 600;
+    .profile-chip span:first-child {
+      font-weight: 500;
+      color: var(--text-main);
     }
 
     main {
@@ -130,7 +129,7 @@
     }
 
     .panel {
-      background: radial-gradient(circle at top left, rgba(60, 255, 155, 0.06) 0, rgba(9, 12, 19, 0.96) 38%, rgba(4, 5, 7, 0.98) 100%);
+      background: var(--bg-card);
       border-radius: var(--radius-xl);
       border: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-soft);
@@ -143,8 +142,8 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at top right, rgba(60, 255, 155, 0.12) 0, transparent 55%);
-      opacity: 0.4;
+      background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.8) 0, transparent 65%);
+      opacity: 0.9;
       pointer-events: none;
     }
 
@@ -156,8 +155,9 @@
     h2 {
       margin: 0 0 4px;
       font-size: 20px;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
+      font-weight: 500;
     }
 
     .panel-subtitle {
@@ -167,10 +167,10 @@
     }
 
     .field-label {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.16em;
       margin-top: 12px;
       margin-bottom: 4px;
     }
@@ -182,25 +182,25 @@
       width: 100%;
       border-radius: 11px;
       border: 1px solid var(--border-subtle);
-      background: rgba(8, 11, 19, 0.95);
+      background: #fdfbf7;
       color: var(--text-main);
       font-size: 14px;
       padding: 9px 11px;
       outline: none;
-      transition: border var(--transition-fast), box-shadow var(--transition-fast), transform 0.12s ease-out, background 0.12s ease-out;
+      transition: border var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), transform 0.12s ease-out;
     }
 
     input::placeholder,
     textarea::placeholder {
-      color: #626878;
+      color: #b2aaa0;
     }
 
     input:focus,
     select:focus,
     textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(60, 255, 155, 0.35);
-      background: rgba(11, 15, 24, 0.98);
+      border-color: var(--accent-soft);
+      box-shadow: 0 0 0 1px rgba(198, 180, 159, 0.28);
+      background: #fefcf8;
     }
 
     textarea {
@@ -209,42 +209,42 @@
     }
 
     button {
-      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-      border: none;
-      font-weight: 600;
-      letter-spacing: 0.08em;
+      background: linear-gradient(135deg, #e6dbce, #d7c7b2);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      font-weight: 500;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      font-size: 12px;
+      font-size: 11px;
       margin-top: 12px;
       cursor: pointer;
-      box-shadow: 0 10px 26px rgba(60, 255, 155, 0.45);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
     }
 
     button:hover {
       transform: translateY(-1px);
-      box-shadow: 0 14px 34px rgba(60, 255, 155, 0.6);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
     }
 
     button:active {
       transform: translateY(0);
-      box-shadow: 0 6px 18px rgba(60, 255, 155, 0.35);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
     }
 
     .button-secondary {
-      background: rgba(11, 15, 24, 0.96);
+      background: #f7f3ed;
       box-shadow: none;
       text-transform: none;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      border: 1px dashed var(--border-subtle);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      border: 1px dashed rgba(0, 0, 0, 0.08);
       font-size: 12px;
     }
 
     .button-secondary:hover {
-      background: rgba(14, 20, 32, 0.98);
+      background: #f3ece2;
       border-style: solid;
       border-color: var(--accent-soft);
-      box-shadow: 0 0 0 1px rgba(60, 255, 155, 0.35);
+      box-shadow: 0 0 0 1px rgba(198, 180, 159, 0.26);
     }
 
     .two-col {
@@ -265,14 +265,14 @@
       padding: 4px 8px;
       font-size: 11px;
       border: 1px solid var(--border-subtle);
-      background: rgba(8, 11, 18, 0.9);
+      background: #f7f3ed;
       color: var(--text-muted);
     }
 
     .pill.accent {
       border-color: var(--accent-soft);
-      color: var(--accent);
-      background: rgba(60, 255, 155, 0.06);
+      color: var(--accent-strong);
+      background: #f9f3ea;
     }
 
     .closet-grid {
@@ -284,12 +284,12 @@
 
     .item-card {
       position: relative;
-      background: radial-gradient(circle at top, rgba(60, 255, 155, 0.12) 0, rgba(10, 14, 22, 0.98) 50%);
+      background: #fdfbf7;
       border-radius: 14px;
       border: 1px solid var(--border-subtle);
       padding: 8px;
       cursor: grab;
-      transition: transform 0.16s ease-out, box-shadow 0.16s ease-out, border 0.16s ease-out;
+      transition: transform 0.16s ease-out, box-shadow 0.16s ease-out, border 0.16s ease-out, background 0.16s ease-out;
     }
 
     .item-card:active {
@@ -297,9 +297,10 @@
     }
 
     .item-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.7);
-      border-color: var(--accent-soft);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.06);
+      border-color: rgba(0, 0, 0, 0.08);
+      background: #fefcf8;
     }
 
     .item-img {
@@ -307,7 +308,7 @@
       aspect-ratio: 3 / 4;
       object-fit: cover;
       border-radius: 10px;
-      background: #11141e;
+      background: #f0ebe3;
     }
 
     .item-meta {
@@ -322,6 +323,7 @@
     .item-meta strong {
       color: var(--text-main);
       font-size: 12px;
+      font-weight: 500;
     }
 
     .badge {
@@ -330,16 +332,17 @@
       left: 8px;
       font-size: 10px;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      background: rgba(5, 6, 8, 0.84);
+      letter-spacing: 0.16em;
+      background: rgba(253, 251, 247, 0.92);
       border-radius: 999px;
       padding: 2px 7px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      color: var(--text-muted);
     }
 
     .badge.neutral {
       border-color: var(--accent-soft);
-      color: var(--accent);
+      color: var(--accent-strong);
     }
 
     .badge-style {
@@ -349,8 +352,8 @@
       font-size: 10px;
       padding: 2px 7px;
       border-radius: 999px;
-      background: rgba(3, 4, 7, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(252, 248, 242, 0.92);
+      border: 1px solid rgba(0, 0, 0, 0.04);
       color: var(--text-muted);
     }
 
@@ -358,8 +361,8 @@
       margin-top: 10px;
       min-height: 120px;
       border-radius: 14px;
-      border: 1px dashed rgba(255, 255, 255, 0.16);
-      background: radial-gradient(circle at top, rgba(60, 255, 155, 0.08) 0, rgba(9, 12, 18, 0.98) 50%);
+      border: 1px dashed rgba(0, 0, 0, 0.08);
+      background: #f7f3ed;
       padding: 8px;
       display: flex;
       flex-wrap: wrap;
@@ -370,17 +373,17 @@
     }
 
     .builder-dropzone.is-over {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(60, 255, 155, 0.4);
-      background: radial-gradient(circle at top, rgba(60, 255, 155, 0.18) 0, rgba(9, 12, 18, 0.98) 50%);
+      border-color: var(--accent-soft);
+      box-shadow: 0 0 0 1px rgba(198, 180, 159, 0.25);
+      background: #f3ece2;
     }
 
     .builder-item {
       width: 70px;
       border-radius: 10px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: #090c13;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: #fdfbf7;
       font-size: 9px;
       text-align: center;
     }
@@ -410,14 +413,14 @@
       padding: 3px 7px;
       border-radius: 999px;
       border: 1px solid var(--border-subtle);
-      background: rgba(8, 11, 18, 0.96);
+      background: #f7f3ed;
       color: var(--text-muted);
     }
 
     .chip.good {
       border-color: var(--accent-soft);
-      color: var(--accent);
-      background: rgba(60, 255, 155, 0.06);
+      color: var(--accent-strong);
+      background: #f9f3ea;
     }
 
     .outfit-preview {
@@ -430,8 +433,8 @@
     .outfit-slot {
       width: 90px;
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      background: #090c13;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: #fdfbf7;
       font-size: 10px;
       overflow: hidden;
       text-align: center;
@@ -467,8 +470,8 @@
 
     .saved-card {
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(7, 10, 17, 0.94);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: #f7f3ed;
       padding: 8px;
       display: flex;
       gap: 8px;
@@ -486,6 +489,7 @@
       color: var(--text-main);
       font-size: 12px;
       margin-bottom: 2px;
+      font-weight: 500;
     }
 
     .saved-thumbs {
@@ -498,22 +502,24 @@
       height: 40px;
       border-radius: 9px;
       object-fit: cover;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: #f0ebe3;
     }
 
     .tiny-button {
       font-size: 10px;
       padding: 3px 7px;
       border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      background: rgba(9, 12, 19, 0.96);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: #fdfbf7;
       color: var(--text-muted);
       cursor: pointer;
     }
 
     .tiny-button:hover {
       border-color: var(--accent-soft);
-      color: var(--accent);
+      color: var(--accent-strong);
+      background: #f9f3ee;
     }
 
     .helper-text {
@@ -537,6 +543,12 @@
       color: var(--text-muted);
       margin-top: 6px;
     }
+
+    hr {
+      border: none;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      margin: 14px 0;
+    }
   </style>
 </head>
 <body>
@@ -545,13 +557,13 @@
   <div class="logo">
     <div class="logo-mark"></div>
     <div>
-      <div class="logo-text-main">ClosetMind</div>
-      <div class="logo-text-sub">AI outfit engine</div>
+      <div class="logo-text-main">OOTD</div>
+      <div class="logo-text-sub">AI closet stylist</div>
     </div>
   </div>
   <div class="profile-chip">
     <span id="profileNameLabel">Guest</span>
-    <span>👤</span>
+    <span>◦</span>
   </div>
 </header>
 
@@ -559,18 +571,18 @@
   <!-- LEFT: Closet & Builder -->
   <section class="panel">
     <div class="panel-inner">
-      <h2>Your Closet</h2>
+      <h2>Closet</h2>
       <div class="panel-subtitle">
-        Upload your pieces, tag them, then drag items into the outfit builder.
+        Photograph your pieces, tag them once, and OOTD remembers your wardrobe.
       </div>
 
       <!-- "Login"/profile (local only) -->
-      <div class="field-label">Profile name (local only)</div>
+      <div class="field-label">Profile name</div>
       <div class="profile-row">
         <input id="profileNameInput" type="text" placeholder="e.g., Will, Sam, etc." />
         <button class="button-secondary" id="saveProfileBtn" type="button">Save</button>
       </div>
-      <div class="status-line" id="profileStatus">Saved locally on this device only.</div>
+      <div class="status-line" id="profileStatus">Saved only on this device.</div>
 
       <!-- Add item -->
       <div class="field-label">Add clothing item</div>
@@ -618,37 +630,37 @@
 
       <button id="addItemBtn" type="button">+ Add to closet</button>
       <div class="helper-text">
-        Tip: use simple color names like <strong>black</strong>, <strong>white</strong>, <strong>navy</strong>, <strong>beige</strong> so color-matching works better.
+        Use simple color names like <strong>black</strong>, <strong>white</strong>, <strong>beige</strong> for better matching.
       </div>
 
-      <div class="field-label" style="margin-top: 16px;">Closet items</div>
+      <div class="field-label" style="margin-top: 16px;">Items</div>
       <div id="closetGrid" class="closet-grid"></div>
 
       <!-- Outfit builder (drag & drop) -->
-      <div class="field-label" style="margin-top: 18px;">Outfit builder (drag items here)</div>
+      <div class="field-label" style="margin-top: 18px;">Outfit builder</div>
       <div id="builderDropzone" class="builder-dropzone">
-        <span class="helper-text">Drag pieces from your closet into this area to build a custom outfit.</span>
+        <span class="helper-text">Drag pieces from your closet here to build a look.</span>
       </div>
-      <button id="saveBuilderOutfitBtn" type="button" class="button-secondary">Save this custom outfit</button>
+      <button id="saveBuilderOutfitBtn" type="button" class="button-secondary">Save this outfit</button>
     </div>
   </section>
 
-  <!-- RIGHT: AI Outfit Generator & Saved Outfits -->
+  <!-- RIGHT: Generator & Saved Outfits -->
   <section class="panel">
     <div class="panel-inner">
-      <h2>AI-ish Outfit Generator</h2>
+      <h2>Outfits</h2>
       <div class="panel-subtitle">
-        Describe the vibe. We’ll mix rules + color harmony to pick an outfit from your closet.
+        Describe the mood. OOTD suggests a look from what you already own.
       </div>
 
       <div class="field-label">Prompt</div>
-      <textarea id="prompt" placeholder="e.g., 'Casual winter fit for school with my white sneakers'"></textarea>
+      <textarea id="prompt" placeholder="e.g., “Casual winter outfit for school with my white sneakers”"></textarea>
 
       <div class="two-col">
         <div>
-          <div class="field-label">Vibe (optional)</div>
+          <div class="field-label">Vibe</div>
           <select id="vibeSelect">
-            <option value="">Auto-detect</option>
+            <option value="">Auto</option>
             <option value="Casual">Casual</option>
             <option value="Formal">Formal</option>
             <option value="Streetwear">Streetwear</option>
@@ -668,21 +680,21 @@
         </div>
       </div>
 
-      <div class="field-label">Constraints (optional)</div>
-      <input id="mustIncludeInput" type="text" placeholder="e.g., 'include my black jeans', 'use white sneakers'" />
+      <div class="field-label">Constraints</div>
+      <input id="mustIncludeInput" type="text" placeholder="e.g., “include black jeans”, “use white sneakers”" />
 
       <button id="generateOutfitBtn" type="button">Generate outfit</button>
 
       <div class="chips-row">
         <div class="chip good">Color harmony</div>
         <div class="chip good">Weather-aware</div>
-        <div class="chip">Rule-based (no cloud API yet)</div>
+        <div class="chip">Rule-based (on-device)</div>
       </div>
 
       <div id="outfitPreviewArea" class="outfit-preview"></div>
       <div id="outfitFooter" class="outfit-footer"></div>
 
-      <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 14px 0;" />
+      <hr />
 
       <div class="field-label">Saved outfits</div>
       <div id="savedOutfitsContainer" class="saved-outfits"></div>
@@ -692,9 +704,9 @@
 
 <script>
   // ---------- Storage Keys ----------
-  const CLOSET_KEY = "closetMind_closet";
-  const OUTFITS_KEY = "closetMind_outfits";
-  const PROFILE_KEY = "closetMind_profile";
+  const CLOSET_KEY = "ootd_closet";
+  const OUTFITS_KEY = "ootd_outfits";
+  const PROFILE_KEY = "ootd_profile";
 
   // ---------- State ----------
   let closet = [];
@@ -724,7 +736,7 @@
         document.getElementById("profileNameInput").value = profile.name;
         document.getElementById("profileNameLabel").textContent = profile.name;
         document.getElementById("profileStatus").textContent =
-          "Profile name loaded from local storage.";
+          "Profile name loaded from this browser.";
       }
     } catch {
       // ignore
@@ -763,7 +775,7 @@
     const name = document.getElementById("profileNameInput").value.trim() || "Guest";
     localStorage.setItem(PROFILE_KEY, JSON.stringify({ name }));
     document.getElementById("profileNameLabel").textContent = name;
-    document.getElementById("profileStatus").textContent = "Saved! This stays only on this device/browser.";
+    document.getElementById("profileStatus").textContent = "Saved. This stays on this device.";
   });
 
   // ---------- Closet ----------
@@ -808,7 +820,6 @@
       card.appendChild(badge);
       card.appendChild(badgeStyle);
 
-      // Drag events
       card.addEventListener("dragstart", e => {
         e.dataTransfer.setData("text/plain", item.id);
       });
@@ -823,7 +834,7 @@
     if (!builderItems.length) {
       const span = document.createElement("span");
       span.className = "helper-text";
-      span.textContent = "Drag pieces from your closet into this area to build a custom outfit.";
+      span.textContent = "Drag pieces from your closet here to build a look.";
       zone.appendChild(span);
       return;
     }
@@ -925,7 +936,6 @@
   function pickOutfitFromCloset(context) {
     if (!closet.length) return [];
 
-    // Filter by vibe/style
     const styleMap = {
       Casual: ["Casual", "Streetwear", "Sporty"],
       Formal: ["Formal"],
@@ -938,7 +948,6 @@
 
     let filtered = closet.filter(i => allowedStyles.includes(i.style));
 
-    // Weather filter
     if (context.weather === "Cold") {
       filtered = filtered.filter(i => warmScore(i.warmth) >= 1 || i.category === "Jacket");
     } else if (context.weather === "Warm") {
@@ -949,7 +958,6 @@
 
     if (!filtered.length) filtered = [...closet];
 
-    // Ensure required items/colors
     if (context.includeHints) {
       const hint = context.includeHints;
       filtered = filtered.sort((a, b) => {
@@ -995,23 +1003,19 @@
       if (bottom) outfit.push(bottom);
     }
 
-    // Shoes
     let shoes = pickRandom(byCategory.Shoes);
     if (!shoes && closet.find(i => i.category === "Shoes")) {
       shoes = closet.find(i => i.category === "Shoes");
     }
     if (shoes) outfit.push(shoes);
 
-    // Jacket if cold
     if (context.weather === "Cold") {
       const jacket = pickRandom(byCategory.Jacket);
       if (jacket) outfit.push(jacket);
     }
 
-    // Color harmony: reduce clashing bright colors
     const accents = outfit.filter(i => !i.isNeutral);
     if (accents.length > 1) {
-      // Keep first accent, replace others with neutral from same category if possible
       const keep = accents[0];
       outfit = outfit.map(item => {
         if (!item.isNeutral && item !== keep) {
@@ -1036,7 +1040,7 @@
     footer.innerHTML = "";
 
     if (!outfit || !outfit.length) {
-      footer.textContent = "No valid outfit found with your current closet & filters. Try relaxing the prompt or weather filter.";
+      footer.textContent = "No outfit found with your current filters. Try loosening the prompt or weather.";
       return;
     }
 
@@ -1050,12 +1054,12 @@
       area.appendChild(slot);
     });
 
-    const vibeLabel = context.vibe || "Casual-ish";
+    const vibeLabel = context.vibe || "Casual";
     const weatherLabel = context.weather || "any weather";
 
     footer.innerHTML = `
-      Suggesting a <strong>${vibeLabel}</strong> look for <strong>${weatherLabel.toLowerCase()}</strong>.
-      Color harmony prefers neutrals + one accent piece.
+      Suggesting a <strong>${vibeLabel.toLowerCase()}</strong> look for <strong>${weatherLabel.toLowerCase()}</strong>.
+      Neutrals are prioritised, with at most one accent piece.
     `;
   }
 
@@ -1069,7 +1073,6 @@
     const outfit = pickOutfitFromCloset(context);
     renderGeneratedOutfit(outfit, context);
 
-    // Optionally auto-add to builder view
     builderItems = outfit.slice();
     renderBuilder();
   });
@@ -1080,7 +1083,7 @@
       alert("Drag at least one clothing item into the builder first.");
       return;
     }
-    const name = prompt("Name this outfit (e.g., 'Cozy winter fit'):");
+    const name = prompt("Name this outfit (e.g., “Cozy winter look”):");
     if (!name) return;
 
     const outfit = {
@@ -1098,7 +1101,7 @@
     const container = document.getElementById("savedOutfitsContainer");
     container.innerHTML = "";
     if (!savedOutfits.length) {
-      container.innerHTML = "<div class='helper-text'>No saved outfits yet. Save one from the builder or generator.</div>";
+      container.innerHTML = "<div class='helper-text'>No saved outfits yet.</div>";
       return;
     }
 
@@ -1115,7 +1118,7 @@
         .slice(0, 4);
 
       if (!items.length) {
-        thumbs.innerHTML = "<div class='helper-text'>Items missing (maybe deleted from closet).</div>";
+        thumbs.innerHTML = "<div class='helper-text'>Items missing from closet.</div>";
       } else {
         items.forEach(item => {
           const img = document.createElement("img");
@@ -1179,4 +1182,3 @@
 
 </body>
 </html>
-
