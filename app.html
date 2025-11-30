@@ -6,18 +6,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
-      --bg-main: #f5f2ec;
-      --bg-card: #fdfbf7;
-      --bg-muted: #f0ebe2;
+      --bg-main: #f6f3ed;
+      --bg-card: #ffffff;
       --accent: #c6b49f;
       --accent-soft: rgba(198, 180, 159, 0.35);
-      --accent-strong: #b79f86;
       --text-main: #2b2a28;
-      --text-muted: #8c867d;
-      --border-subtle: rgba(0, 0, 0, 0.06);
-      --radius-xl: 18px;
-      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.04);
-      --transition-fast: 0.2s ease;
+      --text-muted: #7b746a;
+      --border-subtle: rgba(0, 0, 0, 0.08);
+      --shadow-soft: 0 10px 25px rgba(0,0,0,0.06);
+    }
+
+    body.dark {
+      --bg-main: #111111;
+      --bg-card: #181818;
+      --accent: #c6b49f;
+      --accent-soft: rgba(198, 180, 159, 0.45);
+      --text-main: #f8f5ef;
+      --text-muted: #b4aca1;
+      --border-subtle: rgba(255,255,255,0.08);
+      --shadow-soft: 0 10px 25px rgba(0,0,0,0.6);
     }
 
     * {
@@ -27,39 +34,47 @@
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-      background: radial-gradient(circle at top, #fdfaf6 0, #f5f2ec 55%);
+      background: var(--bg-main);
       color: var(--text-main);
       min-height: 100vh;
+      transition: background 0.25s ease, color 0.25s ease;
     }
 
     header {
       position: sticky;
       top: 0;
       z-index: 10;
-      backdrop-filter: blur(16px);
-      background: rgba(253, 250, 246, 0.94);
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border-subtle);
-      padding: 14px 18px;
+      padding: 12px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+    body.dark header {
+      background: rgba(15,15,15,0.92);
     }
 
-    .logo {
+    .header-left {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
     .logo-mark {
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       border-radius: 12px;
       border: 1px solid var(--border-subtle);
       background: radial-gradient(circle at top left, #fdfbf7 0, #e9e0d3 65%);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
       position: relative;
       overflow: hidden;
+    }
+    body.dark .logo-mark {
+      background: radial-gradient(circle at top left, #26231f 0, #14110e 65%);
     }
 
     .logo-mark::before {
@@ -70,106 +85,158 @@
       border: 1px solid rgba(0, 0, 0, 0.05);
     }
 
-    .logo-main {
+    .logo-text-main {
       font-weight: 600;
       font-size: 18px;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
     }
 
-    .logo-sub {
+    .logo-text-sub {
       font-size: 11px;
       color: var(--text-muted);
       letter-spacing: 0.16em;
       text-transform: uppercase;
     }
 
-    .profile-chip {
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pill {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 7px 11px;
+      gap: 6px;
+      padding: 6px 10px;
       border-radius: 999px;
       border: 1px solid var(--border-subtle);
-      background: rgba(253, 250, 246, 0.9);
+      background: rgba(255,255,255,0.9);
       font-size: 12px;
       color: var(--text-muted);
     }
+    body.dark .pill {
+      background: rgba(18,18,18,0.9);
+    }
 
-    .profile-chip span:first-child {
-      font-weight: 500;
+    .pill strong {
       color: var(--text-main);
     }
 
-    .logout-btn {
-      font-size: 11px;
-      padding: 3px 8px;
+    .icon-btn {
       border-radius: 999px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      background: #f7f3ed;
+      border: 1px solid var(--border-subtle);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 5px 10px;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .icon-btn:hover {
+      background: rgba(0,0,0,0.04);
+    }
+    body.dark .icon-btn:hover {
+      background: rgba(255,255,255,0.05);
+    }
+
+    .logout-btn {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .logout-btn:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 22px auto 32px;
+      padding: 0 16px;
+    }
+
+    .tabs {
+      display: inline-flex;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      background: rgba(255,255,255,0.7);
+      margin-bottom: 18px;
+    }
+    body.dark .tabs {
+      background: rgba(18,18,18,0.9);
+    }
+
+    .tab {
+      padding: 7px 14px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      border: none;
+      background: transparent;
       color: var(--text-muted);
       cursor: pointer;
     }
 
-    main {
-      max-width: 1120px;
-      margin: 26px auto 40px;
-      padding: 0 16px 40px;
-      display: grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
-      gap: 20px;
-    }
-
-    @media (max-width: 900px) {
-      main {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .panel {
+    .tab.active {
       background: var(--bg-card);
-      border-radius: var(--radius-xl);
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: 16px;
       border: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-soft);
-      padding: 18px 18px 22px;
+      padding: 16px 16px 18px;
+      margin-bottom: 18px;
       position: relative;
       overflow: hidden;
+      transform: translateY(0);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.25s ease, border-color 0.25s ease;
     }
 
-    .panel::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.85) 0, transparent 60%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .panel-inner {
-      position: relative;
-      z-index: 1;
+    .card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.08);
     }
 
     h2 {
       margin: 0 0 4px;
-      font-size: 20px;
+      font-size: 18px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       font-weight: 500;
     }
 
-    .panel-subtitle {
+    .subtitle {
       color: var(--text-muted);
       font-size: 13px;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
 
     .field-label {
       font-size: 11px;
       color: var(--text-muted);
       text-transform: uppercase;
-      letter-spacing: 0.16em;
-      margin-top: 12px;
+      letter-spacing: 0.14em;
+      margin-top: 10px;
       margin-bottom: 4px;
     }
 
@@ -178,27 +245,37 @@
     textarea,
     button {
       width: 100%;
-      border-radius: 11px;
+      border-radius: 10px;
       border: 1px solid var(--border-subtle);
-      background: #fdfbf7;
+      background: rgba(255,255,255,0.9);
       color: var(--text-main);
       font-size: 14px;
-      padding: 9px 11px;
+      padding: 9px 10px;
       outline: none;
-      transition: border var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), transform 0.12s ease-out;
+      transition: border 0.18s ease, box-shadow 0.18s ease, background 0.2s ease, transform 0.12s ease;
+    }
+    body.dark input,
+    body.dark select,
+    body.dark textarea {
+      background: #141414;
     }
 
     input::placeholder,
     textarea::placeholder {
-      color: #b2aaa0;
+      color: #b4aca1;
     }
 
     input:focus,
     select:focus,
     textarea:focus {
       border-color: var(--accent-soft);
-      box-shadow: 0 0 0 1px rgba(198, 180, 159, 0.28);
-      background: #fefcf8;
+      box-shadow: 0 0 0 1px rgba(198,180,159,0.3);
+      background: #fdfaf5;
+    }
+    body.dark input:focus,
+    body.dark select:focus,
+    body.dark textarea:focus {
+      background: #181818;
     }
 
     textarea {
@@ -207,65 +284,67 @@
     }
 
     button {
-      background: linear-gradient(135deg, #e6dbce, #d7c7b2);
-      border: 1px solid rgba(0, 0, 0, 0.04);
+      background: linear-gradient(135deg, #e1d4c3, #d0bfa9);
+      border: 1px solid rgba(0,0,0,0.05);
       font-weight: 500;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       font-size: 11px;
-      margin-top: 12px;
+      margin-top: 10px;
       cursor: pointer;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+    }
+    body.dark button {
+      background: linear-gradient(135deg, #3a332b, #2a2520);
+      border-color: rgba(255,255,255,0.04);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.7);
     }
 
     button:hover {
       transform: translateY(-1px);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 14px 28px rgba(0,0,0,0.1);
     }
-
     button:active {
       transform: translateY(0);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
     }
 
-    .button-secondary {
-      background: #f7f3ed;
+    .btn-secondary {
+      background: transparent;
+      border-style: dashed;
       box-shadow: none;
       text-transform: none;
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      border: 1px dashed rgba(0, 0, 0, 0.08);
+      letter-spacing: 0.05em;
       font-size: 12px;
     }
-
-    .button-secondary:hover {
-      background: #f3ece2;
-      border-style: solid;
-      border-color: var(--accent-soft);
-      box-shadow: 0 0 0 1px rgba(198, 180, 159, 0.26);
+    body.dark .btn-secondary {
+      background: #151515;
     }
 
     .two-col {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0,1fr));
       gap: 10px;
     }
 
     .closet-grid {
-      margin-top: 12px;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
       gap: 10px;
+      margin-top: 10px;
     }
 
     .item-card {
-      position: relative;
-      background: #fdfbf7;
-      border-radius: 14px;
+      border-radius: 12px;
       border: 1px solid var(--border-subtle);
-      padding: 8px;
+      background: #fdfcf9;
+      padding: 7px;
+      position: relative;
       cursor: grab;
-      transition: transform 0.16s ease-out, box-shadow 0.16s ease-out, border 0.16s ease-out, background 0.16s ease-out;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+    }
+    body.dark .item-card {
+      background: #181715;
     }
 
     .item-card:active {
@@ -274,99 +353,86 @@
 
     .item-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.06);
-      border-color: rgba(0, 0, 0, 0.08);
-      background: #fefcf8;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.14);
+      border-color: rgba(0,0,0,0.14);
     }
 
-    .item-img {
+    .item-card img {
       width: 100%;
-      aspect-ratio: 3 / 4;
+      height: 150px;
       object-fit: cover;
-      border-radius: 10px;
-      background: #f0ebe3;
+      border-radius: 9px;
+      background: #e5ddd1;
     }
 
-    .item-meta {
-      margin-top: 6px;
+    .item-info {
+      margin-top: 5px;
       font-size: 11px;
       color: var(--text-muted);
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
     }
 
-    .item-meta strong {
+    .item-info strong {
+      display: block;
       color: var(--text-main);
       font-size: 12px;
-      font-weight: 500;
     }
 
     .badge {
       position: absolute;
-      top: 8px;
-      left: 8px;
+      top: 6px;
+      left: 6px;
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      background: rgba(253, 251, 247, 0.92);
+      padding: 2px 6px;
       border-radius: 999px;
-      padding: 2px 7px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      color: var(--text-muted);
-    }
-
-    .badge.neutral {
-      border-color: var(--accent-soft);
-      color: var(--accent-strong);
-    }
-
-    .badge-style {
-      position: absolute;
-      bottom: 8px;
-      left: 8px;
-      font-size: 10px;
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: rgba(252, 248, 242, 0.92);
-      border: 1px solid rgba(0, 0, 0, 0.04);
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(0,0,0,0.06);
       color: var(--text-muted);
     }
 
     .builder-dropzone {
       margin-top: 10px;
-      min-height: 120px;
+      min-height: 130px;
       border-radius: 14px;
-      border: 1px dashed rgba(0, 0, 0, 0.08);
-      background: #f7f3ed;
+      border: 1px dashed rgba(0,0,0,0.16);
+      background: rgba(250,247,242,0.9);
       padding: 8px;
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       align-items: center;
-      justify-content: flex-start;
-      transition: border 0.15s ease-out, background 0.15s ease-out, box-shadow 0.15s ease-out;
+    }
+    body.dark .builder-dropzone {
+      background: rgba(20,20,20,0.9);
+      border-color: rgba(255,255,255,0.14);
     }
 
     .builder-dropzone.is-over {
       border-color: var(--accent-soft);
-      box-shadow: 0 0 0 1px rgba(198, 180, 159, 0.25);
-      background: #f3ece2;
+      box-shadow: 0 0 0 1px rgba(198,180,159,0.35);
+      background: #f4ece1;
+    }
+    body.dark .builder-dropzone.is-over {
+      background: #201c18;
     }
 
     .builder-item {
       width: 70px;
       border-radius: 10px;
       overflow: hidden;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      background: #fdfbf7;
+      border: 1px solid var(--border-subtle);
+      background: #fff;
       font-size: 9px;
       text-align: center;
+    }
+    body.dark .builder-item {
+      background: #181818;
     }
 
     .builder-item img {
       width: 100%;
-      aspect-ratio: 3 / 4;
+      height: 90px;
       object-fit: cover;
       display: block;
     }
@@ -375,28 +441,6 @@
       display: block;
       padding: 3px 4px 5px;
       color: var(--text-muted);
-    }
-
-    .chips-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-top: 6px;
-    }
-
-    .chip {
-      font-size: 11px;
-      padding: 3px 7px;
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      background: #f7f3ed;
-      color: var(--text-muted);
-    }
-
-    .chip.good {
-      border-color: var(--accent-soft);
-      color: var(--accent-strong);
-      background: #f9f3ea;
     }
 
     .outfit-preview {
@@ -409,16 +453,19 @@
     .outfit-slot {
       width: 90px;
       border-radius: 12px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      background: #fdfbf7;
+      border: 1px solid var(--border-subtle);
+      background: #fdfcf9;
       font-size: 10px;
       overflow: hidden;
       text-align: center;
     }
+    body.dark .outfit-slot {
+      background: #181715;
+    }
 
     .outfit-slot img {
       width: 100%;
-      aspect-ratio: 3 / 4;
+      height: 110px;
       object-fit: cover;
       display: block;
     }
@@ -446,12 +493,29 @@
 
     .saved-card {
       border-radius: 12px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      background: #f7f3ed;
+      border: 1px solid var(--border-subtle);
+      background: #f5f1ea;
       padding: 8px;
       display: flex;
       gap: 8px;
       align-items: center;
+    }
+    body.dark .saved-card {
+      background: #211d18;
+    }
+
+    .saved-thumbs {
+      display: flex;
+      gap: 4px;
+    }
+
+    .saved-thumbs img {
+      width: 40px;
+      height: 40px;
+      border-radius: 9px;
+      object-fit: cover;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: #e5ddd1;
     }
 
     .saved-meta {
@@ -468,78 +532,81 @@
       font-weight: 500;
     }
 
-    .saved-thumbs {
-      display: flex;
-      gap: 4px;
-    }
-
-    .saved-thumbs img {
-      width: 40px;
-      height: 40px;
-      border-radius: 9px;
-      object-fit: cover;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      background: #f0ebe3;
-    }
-
     .tiny-button {
       font-size: 10px;
       padding: 3px 7px;
       border-radius: 999px;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      background: #fdfbf7;
+      border: 1px solid var(--border-subtle);
+      background: transparent;
       color: var(--text-muted);
       cursor: pointer;
     }
 
     .tiny-button:hover {
       border-color: var(--accent-soft);
-      color: var(--accent-strong);
-      background: #f9f3ee;
+      color: var(--text-main);
+      background: rgba(255,255,255,0.7);
     }
 
-    .helper-text {
-      margin-top: 4px;
-      font-size: 11px;
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-top: 6px;
       color: var(--text-muted);
     }
 
-    hr {
-      border: none;
-      border-top: 1px solid rgba(0, 0, 0, 0.06);
-      margin: 14px 0;
+    @media (max-width: 780px) {
+      header {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .header-right {
+        width: 100%;
+        justify-content: flex-end;
+      }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">
+  <div class="header-left">
     <div class="logo-mark"></div>
     <div>
-      <div class="logo-main">OOTD</div>
-      <div class="logo-sub">AI closet stylist</div>
+      <div class="logo-text-main">OOTD</div>
+      <div class="logo-text-sub">AI closet stylist</div>
     </div>
   </div>
-  <div class="profile-chip">
-    <span id="profileNameLabel">User</span>
-    <button class="logout-btn" id="logoutBtn" type="button">Log out</button>
+  <div class="header-right">
+    <div class="pill">
+      <strong id="userNameLabel">User</strong>
+      <span>closet</span>
+    </div>
+    <button id="themeToggle" class="icon-btn" type="button">
+      <span id="themeIcon">🌞</span><span>Mode</span>
+    </button>
+    <button id="logoutBtn" class="logout-btn" type="button">Logout</button>
   </div>
 </header>
 
 <main>
-  <!-- LEFT: Closet & Add clothing items -->
-  <section class="panel" id="closetPanel">
-    <div class="panel-inner">
-      <h2>Closet</h2>
-      <div class="panel-subtitle">
-        Start by adding clothing items. Take a photo, tag it, and OOTD will use it to build outfits.
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" data-target="closetSection">Closet</button>
+    <button class="tab" data-target="outfitsSection">Outfits</button>
+    <button class="tab" data-target="statsSection">Stats</button>
+  </div>
+
+  <!-- CLOSET SECTION -->
+  <section id="closetSection" class="section active">
+    <div class="card">
+      <h2>Add clothing</h2>
+      <div class="subtitle">
+        Photograph pieces, tag them once. OOTD will keep them tied to your account on this device.
       </div>
 
-      <button id="scrollToAddBtn" type="button" class="button-secondary">+ Add clothing items</button>
-
-      <div class="field-label" style="margin-top: 14px;">Add item</div>
-      <!-- capture='environment' helps open camera on phones -->
+      <div class="field-label">Photo</div>
       <input id="imageInput" type="file" accept="image/*" capture="environment" />
 
       <div class="two-col">
@@ -572,7 +639,7 @@
           <input id="color" type="text" placeholder="e.g., black, white, beige" />
         </div>
         <div>
-          <div class="field-label">Warmth</div>
+          <div class="field-label">Season warmth</div>
           <select id="warmth">
             <option value="">Any</option>
             <option value="Light">Light / summer</option>
@@ -583,31 +650,23 @@
       </div>
 
       <button id="addItemBtn" type="button">+ Add to closet</button>
-      <div class="helper-text">
-        Tip: neutrals (black, white, beige, grey) work best for flexible outfits.
-      </div>
+    </div>
 
-      <div class="field-label" style="margin-top: 16px;">Items</div>
+    <div class="card">
+      <h2>Your closet</h2>
+      <div class="subtitle">Drag pieces into the builder on the Outfits tab to create custom looks.</div>
       <div id="closetGrid" class="closet-grid"></div>
-
-      <div class="field-label" style="margin-top: 18px;">Outfit builder</div>
-      <div id="builderDropzone" class="builder-dropzone">
-        <span class="helper-text">Drag pieces from your closet here to build a custom look.</span>
-      </div>
-      <button id="saveBuilderOutfitBtn" type="button" class="button-secondary">Save this outfit</button>
     </div>
   </section>
 
-  <!-- RIGHT: Generator & Saved outfits -->
-  <section class="panel">
-    <div class="panel-inner">
-      <h2>Outfits</h2>
-      <div class="panel-subtitle">
-        Describe the mood and weather. OOTD will pull pieces from your closet.
-      </div>
+  <!-- OUTFITS SECTION -->
+  <section id="outfitsSection" class="section">
+    <div class="card">
+      <h2>AI outfit generator</h2>
+      <div class="subtitle">Describe the vibe and weather. OOTD suggests a look from your closet.</div>
 
       <div class="field-label">Prompt</div>
-      <textarea id="prompt" placeholder="e.g., “Comfy winter outfit for school with my white sneakers”"></textarea>
+      <textarea id="prompt" placeholder="e.g., comfy winter outfit for class with my white sneakers"></textarea>
 
       <div class="two-col">
         <div>
@@ -633,73 +692,77 @@
         </div>
       </div>
 
-      <div class="field-label">Constraints</div>
-      <input id="mustIncludeInput" type="text" placeholder="e.g., “include black jeans”, “use white sneakers”" />
+      <div class="field-label">Must include</div>
+      <input id="mustIncludeInput" type="text" placeholder="e.g., use black jeans, include white sneakers" />
 
       <button id="generateOutfitBtn" type="button">Generate outfit</button>
 
-      <div class="chips-row">
-        <div class="chip good">Color harmony</div>
-        <div class="chip good">Weather-aware</div>
-        <div class="chip">On-device rules (no server)</div>
+      <div class="outfit-preview" id="outfitPreviewArea"></div>
+      <div class="outfit-footer" id="outfitFooter"></div>
+    </div>
+
+    <div class="card">
+      <h2>Outfit builder</h2>
+      <div class="subtitle">Drag items from the closet into this space, then save as a named look.</div>
+      <div id="builderDropzone" class="builder-dropzone">
+        <span class="subtitle" style="margin:0;font-size:11px;">Drop pieces here to build a fit.</span>
       </div>
+      <button id="saveBuilderOutfitBtn" class="btn-secondary" type="button">Save this outfit</button>
+    </div>
 
-      <div id="outfitPreviewArea" class="outfit-preview"></div>
-      <div id="outfitFooter" class="outfit-footer"></div>
-
-      <hr />
-
-      <div class="field-label">Saved outfits</div>
+    <div class="card">
+      <h2>Saved outfits</h2>
+      <div class="subtitle">Tap load to refill the builder with that look.</div>
       <div id="savedOutfitsContainer" class="saved-outfits"></div>
+    </div>
+  </section>
+
+  <!-- STATS SECTION -->
+  <section id="statsSection" class="section">
+    <div class="card">
+      <h2>Wardrobe stats</h2>
+      <div class="subtitle">A quick snapshot of what lives in your digital closet.</div>
+
+      <div id="statsContent"></div>
     </div>
   </section>
 </main>
 
 <script>
   const USERS_KEY = "ootd_users";
-  const CURRENT_USER_KEY = "ootd_currentUserId";
+  const CURRENT_USER_KEY = "ootd_current_user";
+  const THEME_KEY = "ootd_theme";
 
+  let users = [];
+  let currentUserId = null;
   let currentUser = null;
   let builderItems = [];
 
   function loadUsers() {
     try {
-      const raw = localStorage.getItem(USERS_KEY);
-      return raw ? JSON.parse(raw) : [];
+      return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
     } catch {
       return [];
     }
   }
 
-  function saveUsers(users) {
+  function saveUsers() {
     localStorage.setItem(USERS_KEY, JSON.stringify(users));
   }
 
-  function loadCurrentUser() {
-    const userId = localStorage.getItem(CURRENT_USER_KEY);
-    if (!userId) return null;
-    const users = loadUsers();
-    return users.find(u => u.id === userId) || null;
-  }
-
   function saveCurrentUser() {
-    const users = loadUsers();
-    const idx = users.findIndex(u => u.id === currentUser.id);
+    const idx = users.findIndex(u => u.id == currentUser.id);
     if (idx !== -1) {
       users[idx] = currentUser;
-      saveUsers(users);
+      saveUsers();
     }
-  }
-
-  function uuid() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
   }
 
   function isNeutral(color) {
     if (!color) return false;
     const c = color.toLowerCase();
-    const neutrals = ["black", "white", "grey", "gray", "beige", "cream", "navy", "denim", "brown", "tan", "khaki"];
-    return neutrals.some(n => c.includes(n));
+    return ["black","white","grey","gray","beige","cream","navy","denim","brown","tan","khaki"]
+      .some(n => c.includes(n));
   }
 
   function warmScore(warmth) {
@@ -710,24 +773,56 @@
     return 1;
   }
 
-  // --- Logout ---
+  function uuid() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  }
+
+  // THEME
+  function applyTheme() {
+    const theme = localStorage.getItem(THEME_KEY) || "light";
+    if (theme === "dark") {
+      document.body.classList.add("dark");
+      document.getElementById("themeIcon").textContent = "🌙";
+    } else {
+      document.body.classList.remove("dark");
+      document.getElementById("themeIcon").textContent = "🌞";
+    }
+  }
+
+  document.getElementById("themeToggle").addEventListener("click", () => {
+    const current = localStorage.getItem(THEME_KEY) || "light";
+    const next = current === "light" ? "dark" : "light";
+    localStorage.setItem(THEME_KEY, next);
+    applyTheme();
+  });
+
+  // NAV TABS
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+
+      const target = tab.dataset.target;
+      document.querySelectorAll(".section").forEach(s => {
+        s.classList.toggle("active", s.id === target);
+      });
+    });
+  });
+
+  // LOGOUT
   document.getElementById("logoutBtn").addEventListener("click", () => {
     localStorage.removeItem(CURRENT_USER_KEY);
     window.location.href = "index.html";
   });
 
-  // --- Scroll to Add clothing items ---
-  document.getElementById("scrollToAddBtn").addEventListener("click", () => {
-    document.getElementById("imageInput").scrollIntoView({ behavior: "smooth", block: "center" });
-  });
-
-  // --- Closet Rendering ---
+  // CLOSET RENDER
   function renderCloset() {
     const grid = document.getElementById("closetGrid");
     const closet = currentUser.closet || [];
     grid.innerHTML = "";
+
     if (!closet.length) {
-      grid.innerHTML = "<div class='helper-text'>No items yet. Add a few pieces to get started.</div>";
+      grid.innerHTML = "<div class='subtitle'>No items yet. Add a few pieces to get started.</div>";
       return;
     }
 
@@ -740,29 +835,22 @@
       const img = document.createElement("img");
       img.src = item.image;
       img.alt = item.category;
-      img.className = "item-img";
 
-      const meta = document.createElement("div");
-      meta.className = "item-meta";
-      meta.innerHTML = `
+      const info = document.createElement("div");
+      info.className = "item-info";
+      info.innerHTML = `
         <strong>${item.category}</strong>
-        <span>${item.color || "No color"}</span>
-        <span>${item.style || "No style"}</span>
-        <span>${item.warmth || "Any season"}</span>
+        <span>${item.color || "No color"}</span><br/>
+        <span>${item.style || "No style"} • ${item.warmth || "Any"}</span>
       `;
 
       const badge = document.createElement("div");
-      badge.className = "badge" + (item.isNeutral ? " neutral" : "");
+      badge.className = "badge";
       badge.textContent = item.isNeutral ? "Neutral" : "Accent";
 
-      const badgeStyle = document.createElement("div");
-      badgeStyle.className = "badge-style";
-      badgeStyle.textContent = item.style || "Style";
-
       card.appendChild(img);
-      card.appendChild(meta);
+      card.appendChild(info);
       card.appendChild(badge);
-      card.appendChild(badgeStyle);
 
       card.addEventListener("dragstart", e => {
         e.dataTransfer.setData("text/plain", item.id);
@@ -772,13 +860,15 @@
     });
   }
 
+  // BUILDER RENDER
   function renderBuilder() {
     const zone = document.getElementById("builderDropzone");
     zone.innerHTML = "";
     if (!builderItems.length) {
       const span = document.createElement("span");
-      span.className = "helper-text";
-      span.textContent = "Drag pieces from your closet here to build a custom look.";
+      span.className = "subtitle";
+      span.style.fontSize = "11px";
+      span.textContent = "Drop pieces here to build a fit.";
       zone.appendChild(span);
       return;
     }
@@ -787,14 +877,14 @@
       const div = document.createElement("div");
       div.className = "builder-item";
       div.innerHTML = `
-        <img src="${item.image}" alt="${item.category}" />
+        <img src="${item.image}" alt="${item.category}"/>
         <span>${item.category}</span>
       `;
       zone.appendChild(div);
     });
   }
 
-  function setupBuilderDropzone() {
+  function setupDropzone() {
     const zone = document.getElementById("builderDropzone");
     zone.addEventListener("dragover", e => {
       e.preventDefault();
@@ -816,26 +906,24 @@
     });
   }
 
-  // --- Add item ---
+  // ADD ITEM
   document.getElementById("addItemBtn").addEventListener("click", () => {
-    const fileInput = document.getElementById("imageInput");
-    const file = fileInput.files[0];
+    const file = document.getElementById("imageInput").files[0];
     const category = document.getElementById("category").value;
     const style = document.getElementById("style").value;
     const color = document.getElementById("color").value.trim();
     const warmth = document.getElementById("warmth").value;
 
     if (!file || !category || !style || !color) {
-      alert("Please add an image and fill in category, style, and color.");
+      alert("Please fill image, category, style, and color.");
       return;
     }
 
     const reader = new FileReader();
     reader.onload = e => {
-      const base64 = e.target.result;
       const item = {
         id: uuid(),
-        image: base64,
+        image: e.target.result,
         category,
         style,
         color,
@@ -846,7 +934,8 @@
       currentUser.closet.push(item);
       saveCurrentUser();
       renderCloset();
-      fileInput.value = "";
+      renderStats();
+      document.getElementById("imageInput").value = "";
       document.getElementById("color").value = "";
       document.getElementById("category").value = "";
       document.getElementById("style").value = "";
@@ -855,12 +944,12 @@
     reader.readAsDataURL(file);
   });
 
-  // --- Generator logic ---
+  // ANALYSE PROMPT (fake AI brain)
   function analyzePrompt(prompt, vibeSelect, weatherSelect, mustIncludeText) {
     const lower = (prompt || "").toLowerCase();
     const vibe = vibeSelect || (
       lower.includes("formal") ? "Formal" :
-      lower.includes("street") || lower.includes("streetwear") ? "Streetwear" :
+      lower.includes("street") ? "Streetwear" :
       lower.includes("sport") || lower.includes("gym") ? "Sporty" :
       lower.includes("date") ? "Date" :
       lower.includes("work") || lower.includes("office") ? "Work" :
@@ -869,8 +958,8 @@
 
     let weather = weatherSelect || "";
     if (!weather) {
-      if (lower.includes("cold") || lower.includes("winter")) weather = "Cold";
-      else if (lower.includes("hot") || lower.includes("summer")) weather = "Warm";
+      if (lower.includes("winter") || lower.includes("cold")) weather = "Cold";
+      else if (lower.includes("summer") || lower.includes("hot")) weather = "Warm";
       else if (lower.includes("rain") || lower.includes("rainy")) weather = "Rainy";
     }
 
@@ -878,19 +967,21 @@
     return { vibe, weather, includeHints };
   }
 
-  function pickOutfitFromCloset(context) {
+  // PICK OUTFIT
+  function pickOutfit(context) {
     const closet = currentUser.closet || [];
     if (!closet.length) return [];
 
     const styleMap = {
-      Casual: ["Casual", "Streetwear", "Sporty"],
+      Casual: ["Casual","Streetwear","Sporty"],
       Formal: ["Formal"],
-      Streetwear: ["Streetwear", "Casual"],
-      Sporty: ["Sporty", "Casual"],
-      Date: ["Casual", "Formal", "Streetwear"],
-      Work: ["Formal", "Casual"]
+      Streetwear: ["Streetwear","Casual"],
+      Sporty: ["Sporty","Casual"],
+      Date: ["Casual","Formal","Streetwear"],
+      Work: ["Formal","Casual"]
     };
-    const allowedStyles = styleMap[context.vibe] || ["Casual", "Streetwear", "Sporty", "Formal"];
+
+    const allowedStyles = styleMap[context.vibe] || ["Casual","Streetwear","Sporty","Formal"];
 
     let filtered = closet.filter(i => allowedStyles.includes(i.style));
 
@@ -906,18 +997,16 @@
 
     if (context.includeHints) {
       const hint = context.includeHints;
-      filtered = filtered.sort((a, b) => {
-        const aScore =
-          (hint.includes("white") && a.color.toLowerCase().includes("white") ? 1 : 0) +
-          (hint.includes("black") && a.color.toLowerCase().includes("black") ? 1 : 0) +
-          (hint.includes("jean") && a.category === "Bottom" && a.color.toLowerCase().includes("denim") ? 1 : 0) +
-          (hint.includes("sneaker") && a.category === "Shoes" ? 1 : 0);
-        const bScore =
-          (hint.includes("white") && b.color.toLowerCase().includes("white") ? 1 : 0) +
-          (hint.includes("black") && b.color.toLowerCase().includes("black") ? 1 : 0) +
-          (hint.includes("jean") && b.category === "Bottom" && b.color.toLowerCase().includes("denim") ? 1 : 0) +
-          (hint.includes("sneaker") && b.category === "Shoes" ? 1 : 0);
-        return bScore - aScore;
+      filtered = filtered.sort((a,b) => {
+        const score = item => {
+          let s = 0;
+          if (hint.includes("white") && item.color.toLowerCase().includes("white")) s++;
+          if (hint.includes("black") && item.color.toLowerCase().includes("black")) s++;
+          if (hint.includes("jean") && item.category === "Bottom") s++;
+          if (hint.includes("sneaker") && item.category === "Shoes") s++;
+          return s;
+        };
+        return score(b) - score(a);
       });
     }
 
@@ -935,11 +1024,9 @@
     }
 
     let outfit = [];
+    const wantDress = (context.vibe === "Date" || context.vibe === "Formal") && byCategory.Dress.length;
 
-    const dressPrompt = (context.vibe === "Date" || context.vibe === "Formal") &&
-      closet.some(i => i.category === "Dress");
-
-    if (dressPrompt) {
+    if (wantDress) {
       const dress = pickRandom(byCategory.Dress);
       if (dress) outfit.push(dress);
     } else {
@@ -965,12 +1052,10 @@
       const keep = accents[0];
       outfit = outfit.map(item => {
         if (!item.isNeutral && item !== keep) {
-          const neutralsSameCat = closet.filter(
+          const neutralSameCat = closet.filter(
             i => i.category === item.category && i.isNeutral
           );
-          if (neutralsSameCat.length) {
-            return neutralsSameCat[0];
-          }
+          return neutralSameCat[0] || item;
         }
         return item;
       });
@@ -983,10 +1068,10 @@
     const area = document.getElementById("outfitPreviewArea");
     const footer = document.getElementById("outfitFooter");
     area.innerHTML = "";
-    footer.innerHTML = "";
+    footer.textContent = "";
 
-    if (!outfit || !outfit.length) {
-      footer.textContent = "No outfit found with your current filters. Try loosening the prompt or weather.";
+    if (!outfit.length) {
+      footer.textContent = "No outfit found. Try adding more clothes or loosening the filters.";
       return;
     }
 
@@ -1001,35 +1086,35 @@
     });
 
     const vibeLabel = context.vibe || "Casual";
-    const weatherLabel = context.weather || "any weather";
+    const weatherLabel = context.weather || "Any";
 
     footer.innerHTML = `
-      Suggesting a <strong>${vibeLabel.toLowerCase()}</strong> look for <strong>${weatherLabel.toLowerCase()}</strong>.
-      Neutrals are prioritised, with at most one accent piece.
+      Suggesting a <strong>${vibeLabel.toLowerCase()}</strong> outfit for <strong>${weatherLabel.toLowerCase()}</strong> conditions.
+      Neutrals are prioritised so it matches easily with your wardrobe.
     `;
   }
 
   document.getElementById("generateOutfitBtn").addEventListener("click", () => {
     const prompt = document.getElementById("prompt").value;
-    const vibeSelect = document.getElementById("vibeSelect").value;
-    const weatherSelect = document.getElementById("weatherSelect").value;
-    const mustIncludeText = document.getElementById("mustIncludeInput").value;
+    const vibeSel = document.getElementById("vibeSelect").value;
+    const weatherSel = document.getElementById("weatherSelect").value;
+    const mustInclude = document.getElementById("mustIncludeInput").value;
 
-    const context = analyzePrompt(prompt, vibeSelect, weatherSelect, mustIncludeText);
-    const outfit = pickOutfitFromCloset(context);
-    renderGeneratedOutfit(outfit, context);
+    const ctx = analyzePrompt(prompt, vibeSel, weatherSel, mustInclude);
+    const outfit = pickOutfit(ctx);
+    renderGeneratedOutfit(outfit, ctx);
 
     builderItems = outfit.slice();
     renderBuilder();
   });
 
-  // --- Save builder outfit ---
+  // SAVE BUILDER OUTFIT
   document.getElementById("saveBuilderOutfitBtn").addEventListener("click", () => {
     if (!builderItems.length) {
-      alert("Drag at least one clothing item into the builder first.");
+      alert("Drag some pieces into the builder first.");
       return;
     }
-    const name = prompt("Name this outfit (e.g., “Cozy winter look”):");
+    const name = prompt("Name this outfit (e.g., Cozy winter fit):");
     if (!name) return;
 
     const outfit = {
@@ -1038,10 +1123,12 @@
       createdAt: new Date().toISOString(),
       itemIds: builderItems.map(i => i.id)
     };
+
     currentUser.outfits = currentUser.outfits || [];
     currentUser.outfits.unshift(outfit);
     saveCurrentUser();
     renderSavedOutfits();
+    renderStats();
   });
 
   function renderSavedOutfits() {
@@ -1051,38 +1138,34 @@
 
     container.innerHTML = "";
     if (!outfits.length) {
-      container.innerHTML = "<div class='helper-text'>No saved outfits yet.</div>";
+      container.innerHTML = "<div class='subtitle'>No saved outfits yet.</div>";
       return;
     }
 
-    outfits.forEach(outfit => {
+    outfits.forEach(o => {
       const div = document.createElement("div");
       div.className = "saved-card";
 
       const thumbs = document.createElement("div");
       thumbs.className = "saved-thumbs";
 
-      const items = outfit.itemIds
-        .map(id => closet.find(i => i.id === id))
-        .filter(Boolean)
-        .slice(0, 4);
-
-      if (!items.length) {
-        thumbs.innerHTML = "<div class='helper-text'>Items missing from closet.</div>";
-      } else {
-        items.forEach(item => {
+      const items = o.itemIds.map(id => closet.find(i => i.id === id)).filter(Boolean).slice(0,4);
+      if (items.length) {
+        items.forEach(it => {
           const img = document.createElement("img");
-          img.src = item.image;
-          img.alt = item.category;
+          img.src = it.image;
+          img.alt = it.category;
           thumbs.appendChild(img);
         });
+      } else {
+        thumbs.innerHTML = "<div class='subtitle' style='font-size:10px;'>Items missing</div>";
       }
 
       const meta = document.createElement("div");
       meta.className = "saved-meta";
-      const date = new Date(outfit.createdAt);
+      const date = new Date(o.createdAt);
       meta.innerHTML = `
-        <strong>${outfit.name}</strong>
+        <strong>${o.name}</strong>
         <span>${items.length} pieces · ${date.toLocaleDateString()}</span>
       `;
 
@@ -1092,51 +1175,101 @@
       loadBtn.className = "tiny-button";
       loadBtn.textContent = "Load";
       loadBtn.addEventListener("click", () => {
-        builderItems = outfit.itemIds
-          .map(id => closet.find(i => i.id === id))
-          .filter(Boolean);
+        builderItems = o.itemIds.map(id => closet.find(i => i.id === id)).filter(Boolean);
         renderBuilder();
       });
 
-      const deleteBtn = document.createElement("button");
-      deleteBtn.type = "button";
-      deleteBtn.className = "tiny-button";
-      deleteBtn.textContent = "Delete";
-      deleteBtn.style.marginLeft = "4px";
-      deleteBtn.addEventListener("click", () => {
+      const delBtn = document.createElement("button");
+      delBtn.type = "button";
+      delBtn.className = "tiny-button";
+      delBtn.style.marginLeft = "4px";
+      delBtn.textContent = "Delete";
+      delBtn.addEventListener("click", () => {
         if (confirm("Delete this outfit?")) {
-          currentUser.outfits = outfits.filter(o => o.id !== outfit.id);
+          currentUser.outfits = outfits.filter(x => x.id !== o.id);
           saveCurrentUser();
           renderSavedOutfits();
+          renderStats();
         }
       });
 
       actions.appendChild(loadBtn);
-      actions.appendChild(deleteBtn);
+      actions.appendChild(delBtn);
 
       div.appendChild(thumbs);
       div.appendChild(meta);
       div.appendChild(actions);
-
       container.appendChild(div);
     });
   }
 
-  // --- Init ---
+  // STATS
+  function renderStats() {
+    const statsDiv = document.getElementById("statsContent");
+    const closet = currentUser.closet || [];
+    const outfits = currentUser.outfits || [];
+
+    if (!closet.length) {
+      statsDiv.innerHTML = "<div class='subtitle'>Add some items to see stats.</div>";
+      return;
+    }
+
+    const counts = {Top:0, Bottom:0, Shoes:0, Jacket:0, Dress:0};
+    const colorCount = {};
+
+    closet.forEach(i => {
+      if (counts[i.category] != null) counts[i.category]++;
+      const c = (i.color || "").toLowerCase();
+      if (!c) return;
+      colorCount[c] = (colorCount[c] || 0) + 1;
+    });
+
+    let favColor = "";
+    let favCount = 0;
+    Object.entries(colorCount).forEach(([c, count]) => {
+      if (count > favCount) {
+        favColor = c;
+        favCount = count;
+      }
+    });
+
+    statsDiv.innerHTML = `
+      <div class="stat-row"><span>Total items</span><span>${closet.length}</span></div>
+      <div class="stat-row"><span>Tops</span><span>${counts.Top}</span></div>
+      <div class="stat-row"><span>Bottoms</span><span>${counts.Bottom}</span></div>
+      <div class="stat-row"><span>Shoes</span><span>${counts.Shoes}</span></div>
+      <div class="stat-row"><span>Jackets</span><span>${counts.Jacket}</span></div>
+      <div class="stat-row"><span>Dresses</span><span>${counts.Dress}</span></div>
+      <div class="stat-row"><span>Saved outfits</span><span>${outfits.length}</span></div>
+      <div class="stat-row"><span>Most used color</span><span>${favColor || "—"}</span></div>
+    `;
+  }
+
+  // INIT
   (function init() {
-    currentUser = loadCurrentUser();
+    applyTheme();
+
+    users = loadUsers();
+    currentUserId = localStorage.getItem(CURRENT_USER_KEY);
+    currentUser = users.find(u => u.id == currentUserId);
+
     if (!currentUser) {
       window.location.href = "index.html";
       return;
     }
-    document.getElementById("profileNameLabel").textContent = currentUser.name || "User";
-    setupBuilderDropzone();
+
+    document.getElementById("userNameLabel").textContent = currentUser.name || "User";
+
+    currentUser.closet = currentUser.closet || [];
+    currentUser.outfits = currentUser.outfits || [];
+
+    setupDropzone();
     renderCloset();
     renderBuilder();
     renderSavedOutfits();
+    renderStats();
   })();
 </script>
 
 </body>
 </html>
-
